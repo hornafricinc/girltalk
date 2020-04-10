@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="row">
+       <div class="col-sm-12 col-md-12">
+           <h2 class="text-center">Subscription Plans</h2>
+       </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+            <div class="card">
+              <div class="card-header">
+                MONTHLY PLAN
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">$10/MONTH</h3>
+               <form method="post" action="">
+                   {% csrf_token %}
+                   <input type="hidden" name="frequency" value="1">
+                   <input type="hidden" name="plan" value="10" >
+                <button class="btn customBtn btn-block" type="submit">I want This...</button>
+               </form>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="card">
+              <div class="card-header">
+                QUARTERLY PLAN
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">$30/MONTH</h3>
+               <form method="post" action="">
+                    {% csrf_token %}
+                   <input type="hidden" name="frequency" value="3">
+                   <input type="hidden" name="plan" value="30" >
+
+                <button class="btn customBtn btn-block" type="submit">I want This...</button>
+               </form>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="card">
+              <div class="card-header">
+                QUARTERLY PLAN
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">$80/MONTH</h3>
+               <form method="post" action="">
+                    {% csrf_token %}
+                   <input type="hidden" name="frequency" value="12">
+                   <input type="hidden" name="plan" value="80" >
+                <button class="btn customBtn btn-block" type="submit">I want This...</button>
+               </form>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

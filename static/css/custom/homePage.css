@@ -1,0 +1,53 @@
+body{
+    background-image: url("../../images/image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: #464646;
+}
+.customRow{
+    background: url("../../images/search.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat,repeat;
+    height: 800px;
+
+
+}
+
+.account-bg{
+    background-image: url("../../images/img-01.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: #464646;
+}
+.navbar-custom ul li a{
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    font-family:Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+.navbar-custom ul li a:hover{
+    color: white;
+    text-decoration: underline;
+    background: orange;
+    border-radius: 12px;
+}
+.bg-transparent{
+    background: transparent;
+}
+.jumbotron{
+    background: transparent;
+}
+.horn-btn{
+    background-color: #671A84;
+    border-radius: 25px;
+    color: white;
+    min-width: 200px;
+}
+.horn-btn:hover{
+    color: white;
+    background: #DF5952;
+}

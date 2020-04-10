@@ -1,0 +1,45 @@
+{% extends 'accounts/index.html' %}
+
+{% block content %}
+    <div class="container-fluid h-100">
+			<div class="row justify-content-center h-100">
+            <div class="col-sm-12 col-md-5 offset-md-2">
+            <div class="card">
+              <div class="card-header">
+                MONTHLY PLAN
+              </div>
+              <div class="card-body">
+                <h3 class="card-title text-center">$7/MONTH</h3>
+                  <div class="card-body">
+                      <p>This package will enable you use our service after paying a subscription fee of $7 billed every month with no discount</p>
+                  </div>
+               <form method="post" action="">
+                   {% csrf_token %}
+                   <input type="hidden" name="frequency" value="1">
+                <button class="banner_subscribe btn-block" type="submit">Select</button>
+               </form>
+              </div>
+            </div>
+        </div>
+            <div class="col-sm-12 col-md-5">
+            <div class="card">
+              <div class="card-header">
+                YEARLY PLAN
+              </div>
+              <div class="card-body">
+                <h3 class="card-title text-center">$59/YEAR</h3>
+                   <div class="card-body">
+                       <p>This package will give you access to the core features of our application . You will be billed every year.
+                      </p>
+                   </div>
+                   <form method="post" action="">
+                    {% csrf_token %}
+                   <input type="hidden" name="frequency" value="12">
+                   <button class="banner_subscribe btn-block" type="submit">SELECT</button>
+                  </form>
+              </div>
+            </div>
+        </div>
+			</div>
+		</div>
+{% endblock %}

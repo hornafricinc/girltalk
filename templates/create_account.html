@@ -1,0 +1,63 @@
+
+{% extends 'home.html' %}
+{% block content %}
+    <div class="row">
+      <div class="col-sm-12 col-md-5 offset-md-3">
+            <div class="card border-0">
+            <div class="card-header">Girl Tallk Create Account</div>
+  <div class="card-body">
+       <form method="post" action="">
+           {% csrf_token %}
+      <!-- Modal body -->
+           {% if messages %}
+                          {% for message in messages %}
+                              {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                  <script>alert('{{ message }}')</script>
+
+                             {% endif %}
+                             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                               <script>alert('{{ message }}')</script>
+                             {% endif %}
+                          {% endfor %}
+                      {% endif %}
+       <div class="form-row">
+           <div class="form-group col-md-6 col-sm-12">
+               {{ form.first_name }}
+           </div>
+            <div class="form-group col-md-6 col-sm-12">
+               {{ form.last_name }}
+           </div>
+       </div>
+       <div class="form-row">
+           <div class="form-group col-md-6 col-sm-12">
+               {{ form.email }}
+           </div>
+            <div class="form-group col-md-6 col-sm-12">
+               {{ form.username }}
+           </div>
+       </div>
+       <div class="form-row">
+           <div class="form-group col-md-6 col-sm-12">
+               {{ form.password1 }}
+           </div>
+            <div class="form-group col-md-6 col-sm-12">
+               {{ form.password2 }}
+           </div>
+       </div>
+
+      <!-- Modal footer -->
+       <div class="divider"></div>
+      <div class="form-group">
+        <button type="submit" class="banner_subscribe btn-block" ><i class="fa fa-user-circle"></i> CREATE ACCOUNT</button>
+      </div>
+        </form>
+  </div>
+</div>
+
+      </div>
+    </div>
+{% endblock %}
+
+
+
+

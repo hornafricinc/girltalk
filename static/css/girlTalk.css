@@ -1,0 +1,24 @@
+.scroll{
+                margin:4px;
+                padding:4px;
+                background-color: wheat;
+                height: 70vh;
+                overflow-x: hidden;
+                overflow-x: auto;
+                text-align:justify;
+}
+.bg-light{
+     background-color: #F8F8F8;
+     border-color: #E7E7E7;
+}
+body{
+    background-color: aliceblue;
+}
+.Entry{
+    background-color: #731A98;
+    height: 100vh;
+    width: 100vh;
+}
+.card{
+    border: none;
+}

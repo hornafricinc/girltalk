@@ -1,0 +1,155 @@
+ body{
+    image-rendering: pixelated;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-attachment: fixed;
+    background-color: white;
+
+ }
+ h5{
+     color: white;
+     font-weight: 700;
+     font-family: "Bernard MT Condensed";
+ }
+
+.header-home{
+                position: relative;
+                padding-top: 75px;
+                padding-bottom: 70px;
+                overflow: hidden;
+                z-index: 1;
+               background-size: cover;
+
+            }
+  .col-header-text{
+                color: black;
+            }
+            .col-header-text h1{
+                font-size: 60px;
+                line-height: 70px;
+                letter-spacing: 0.05px;
+                color: #F8007C;
+            }
+            .col-header-text h1 span{
+                font-weight: 600;
+            }
+            .col-header-text p{
+                font-size: 18px;
+                line-height: 30px;
+                margin: 25px 0 54px;
+                text-align: justify;
+            }
+            .banner_subscribe{
+                text-transform: uppercase;
+                line-height: 58px;
+                text-align: center !important;
+                font-weight: 700;
+                border-radius: 50px;
+                border: 2px solid deepskyblue;
+                background: white;
+
+            }
+            .banner_subscribe:hover{
+                color: white;
+                background-image:-webkit-linear-gradient(145deg,#faa61f 0%,#ed1847 100%);
+            }
+
+            .banner_btn{
+                font-size: 14px;
+                line-height: 58px;
+                text-align: center !important;
+                font-family: tahoma;
+                font-weight: 700;
+                width: 220px;
+                height: 60px;
+                display: inline-block;
+                text-transform: uppercase;
+                border-radius: 50px;
+                border: 2px solid #510E5B;
+                transition: all 0.5s linear;
+                color: #272929;
+                background: white;
+            }
+            .banner-btn:hover{
+                color: white;
+                background-image:-webkit-linear-gradient(145deg,#faa61f 0%,#ed1847 100%);
+            }
+            .social{
+                margin-top: 90px;
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+            }
+            .social a{
+                color: #510E5B;
+                font-size: 40px;
+                margin-right: 20px;
+                margin-left: 20px;
+            }
+
+           .gt-input{
+               border: 2px solid #F8007C;
+               border-radius: 50px;
+               color: black;
+           }
+           .gt-label{
+               color: white;
+               text-transform: uppercase;
+           }
+
+
+            .navbar{
+                padding: 14px 0;
+                border-bottom: none !important;
+                transition: all 0.5s ease-in-out;
+
+            }
+            .bg-girlTallk{
+                background-image:-webkit-linear-gradient(145deg,#510E5B 0%,#671A84 100%);
+                border-bottom: none !important;
+            }
+            .navbar-nav a{
+                color: white !important;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 13px;
+                transition: all 0.5s ease-in-out;
+                background: transparent !important;
+
+            }
+            #g-container{
+                font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: medium;
+                background: transparent;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+            #g-container h1,h2,h3{
+                color: #510E5B;
+            }
+            #g-container p{
+                color: #C0C0C0;
+            }
+            #g-container card{
+                margin: 20px;
+                background: transparent;
+            }
+        #custom-container{
+            font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+            font-size: larger;
+            width: 100%;
+            min-height: 400px;
+            max-height: 100%;
+            background-color: transparent;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+        .bg-gradient-gtalk{
+            background-color: #6F0F70;
+             background-image:-webkit-linear-gradient(145deg,#FF1493 0%,#ed1847 100%);
+        }
+
+        .custom-control{
+            border-radius: 50px;
+        }

@@ -1,0 +1,32 @@
+.msg-sender{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 10px;
+	border-radius: 25px;
+	background-color: #82ccdd;
+	padding: 10px;
+	position: relative;
+}
+.msg-receiver{
+        margin-top: auto;
+		margin-bottom: auto;
+		margin-right: 10px;
+		border-radius: 20px;
+		background-color: #78e08f;
+		padding: 10px;
+		position: relative;
+}
+.msg-userInfo{
+	    margin-top: auto;
+		margin-bottom: auto;
+		margin-right: 10px;
+		border-radius: 25px;
+		background-color: #FFA500;
+		padding: 10px;
+		position: relative;
+}
+.customInput{
+
+	border-radius: 25px;
+	background-color: #78e08f;
+}

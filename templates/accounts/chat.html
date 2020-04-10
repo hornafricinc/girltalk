@@ -1,0 +1,48 @@
+{% extends 'accounts/dashLayout.html' %}
+{% block  content %}
+    <div class="row">
+    <div class="col-sm-12 col-md-2">
+        <h2>Users</h2>
+    </div>
+       <div class="col-sm-12 col-md-8">
+           <div class="card">
+               <div class="card-body">
+                   {% if receiver is not None %}
+                       <p>{{ receiver.username }} | <span class="card-title" id="ct"></span> </p>
+
+                   {% endif %}
+                   <div class="divider"></div>
+                   <div class="scroll">
+                   <div id="messages">
+                       {% if chats %}
+                           {% for chat in chats %}
+                               {% if chat.sender == request.user %}
+                                   <p>Me</p>
+                                   <p class="badge badge-primary">{{ chat.message_text }}</p>
+                                   {% else %}
+                                   <p>{{ receiver.username }}</p>
+                                   <p class="badge badge-pill badge-warning text-right">{{ chat.message_text }}</p>
+
+                               {% endif %}
+                           {% endfor %}
+                           {% else %}
+                           <p>There are no chats</p>
+                       {% endif %}
+                   </div>
+                       <form method="post" action="">
+                           {% csrf_token %}
+                             <div class="input-group">
+                  <input type="text" class="form-control" required name="message" placeholder="Type your message here">
+                      <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-paper-plane"></i> </button>
+                  </div>
+                </div>
+
+                       </form>
+                   </div>
+
+               </div>
+           </div>
+       </div>
+    </div>
+{% endblock %}

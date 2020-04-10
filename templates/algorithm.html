@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% block  content %}
+
+    <!--The main Page-->
+   <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>Girl Talk</h1>
+    <p>Connecting people who share common interests.Just search for a keyword and fine a partner who has been searching the same and connect.</p>
+  </div>
+</div>
+    <!--End of Main Page-->
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form method="post" action="">
+                {% csrf_token %}
+                <!--Dropdown-->
+                <div class="input-group">
+                    <select class="form-control">
+                        <option value="null">Select Category</option>
+                        <option value="phone">Phone</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="pof">POF</option>
+                        <option value="tinder">Tinder</option>
+                        <option value="instagram">Instagram</option>
+                    </select>
+                  <input type="text" aria-label="Last name" class="form-control">
+                      <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-search"></i> </button>
+                  </div>
+</div>
+</form>
+        </div>
+
+        <!--Search Results-->
+       <div class="col-md-4">
+           <h5 class="text-center"><u>Search Results</u></h5>
+       </div>
+       <!--End of search Results-->
+    </div>
+{% endblock %}
