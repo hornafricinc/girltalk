@@ -153,3 +153,16 @@
         .custom-control{
             border-radius: 50px;
         }
+        /*
+        Style of the client DashBoard
+         */
+        .dropdown-item a{
+            color: purple;
+
+        }
+        .text-purple{
+            color: purple;
+        }
+        .account-drop{
+            color: purple;
+        }

@@ -1,0 +1,7 @@
+.error-text{
+    display: table;
+    color: red;
+    border: 1px solid purple;
+    margin: auto;
+
+}

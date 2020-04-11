@@ -103,6 +103,8 @@ def create_account(request):
         if form.is_valid():
             form.save()
             messages.success(request,'Account created Successfully.Proceed now to Login')
+        else:
+            messages.error(request,'Error Exists in your form Fields')
     else:
         form=UserAccountForm()
     return  render(request,'signup.html',{'form':form})

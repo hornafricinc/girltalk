@@ -8,18 +8,18 @@
 				<form class="login100-form validate-form" method="post" action="">
                     {% csrf_token %}
                      <div class="login100-form-avatar">
-						<img src="{% static 'images/bg.png' %}" alt="AVATAR">
+						<img src="{% static 'images/lock.png' %}" alt="AVATAR">
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
-						Women Invite Only
+						Girl Tallk Invite Only
 					</span>
                      {% if messages %}
                           {% for message in messages %}
                               <p class="text-center text-white">{{ message }}</p>
                           {% endfor %}
                       {% endif %}
-					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
+					<div class="wrap-input100 validate-input m-b-10" data-validate = "Access Code is Required">
                         <input type="text" class="input100" name="access_code" placeholder="Enter access Code">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">

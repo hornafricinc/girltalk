@@ -10,11 +10,31 @@
                     <span class="login100-form-title p-t-20 p-b-45">
 						Girl Tallk~Create Account
 					</span>
-                     {% if messages %}
-                          {% for message in messages %}
-                              <p class="text-center text-white">{{ message }}</p>
-                          {% endfor %}
-                      {% endif %}
+                {% if messages %}
+
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                             <span style="margin:auto; display:table; border:2px solid purple;background: white;color: #2E8B57;border-radius: 25px;padding: 10px;margin-bottom: 12px">
+
+                                      {{ message }}
+                             </span>
+
+                            {% else %}
+                             <span style="margin:auto; display:table; border:2px solid purple;background: white;color: red;border-radius: 25px;padding: 10px;margin-bottom: 12px">
+                                <!--Here Goes the Messages-->
+                                {{ form.email.errors }}
+                                {{ form.username.errors }}
+                                {{ form.password2.errors }}
+                              </span>
+
+                        {% endif %}
+
+
+                    {% endfor %}
+
+
+
+                {% endif %}
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
                         {{ form.first_name }}
 						<span class="focus-input100"></span>

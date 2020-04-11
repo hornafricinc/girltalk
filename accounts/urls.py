@@ -5,7 +5,6 @@ app_name='accounts'
 urlpatterns = [
     path('',views.processSiteEntryCredentials,name='site_entry'),
     path('home/',views.LoadIndex.as_view(),name='index'),
-    path('invite_test/',views.processSiteEntryCredentials,name='inviteCheck'),
     path('signup/',views.create_account,name='signup'),
     path('login/',views.process_user_signin,name='signin'),
     path('accounts/',views.loadUserDashBoard,name='dashboard'),
