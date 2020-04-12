@@ -50,3 +50,5 @@ class UserAccountForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=50, label='Username', widget=forms.TextInput(attrs={'class': 'input100','placeholder':'username'}))
     password1 = forms.CharField(max_length=32, label='Password',widget=forms.PasswordInput(attrs={'class': 'input100','placeholder':'Password'}))
+class PasswordResetRequestForm(forms.Form):
+    email_or_username = forms.CharField(label=("Email Or Username"), max_length=254)

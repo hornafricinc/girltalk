@@ -3,15 +3,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
 from django.utils.html import format_html
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from paypal.standard.forms import PayPalPaymentsForm
 
-from accounts.forms import  LoginForm, UserAccountForm
+
+from accounts.forms import LoginForm, UserAccountForm, PasswordResetRequestForm
 from accounts.models import Search, Messages
 from django.core.mail import send_mail
 
@@ -264,13 +267,3 @@ def getMyFriends(request,username):
     l_user=User.objects.get(username=username)
     friends=Messages.objects.filter(sender=l_user).count()
     return friends
-
-
-
-
-
-
-
-
-
-
