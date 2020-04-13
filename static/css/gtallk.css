@@ -1,0 +1,21 @@
+.gtallk-btn{
+    color: purple;
+    background-color: white;
+    border-radius: 25px;
+    border: 2px solid purple;
+}
+.gtallk-btn:hover{
+    color: white;
+    font-weight: bolder;
+    border:2px solid purple;
+    background-color: purple;
+}
+option,input{
+    color: purple;
+}
+.gtallk-label{
+    color: purple;
+}
+.gtallk-error{
+    color: deeppink;
+}

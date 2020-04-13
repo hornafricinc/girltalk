@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 from paypal.standard.forms import PayPalPaymentsForm
 
 from accounts.views import logoutView
@@ -63,3 +64,9 @@ def process_payment(request):
 
     form=PayPalPaymentsForm(initial=paypal_dict,button_type='subscribe')
     return render(request,'accounts/process_subscription.html',locals())
+
+
+class LoadHome(TemplateView):
+    template_name = 'subscriber/matchalgo.html'
+
+

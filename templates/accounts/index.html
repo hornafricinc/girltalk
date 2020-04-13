@@ -33,7 +33,6 @@
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-gtalk sidebar sidebar-dark accordion" id="accordionSidebar">
-
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'accounts:dashboard' %}">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -71,7 +70,7 @@
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <button class="rounded-circle" id="sidebarToggle"></button>
       </div>
 
     </ul>
@@ -372,7 +371,7 @@
   <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+  <script src="{% static 'js/sb-admin-2.js' %}"></script>
 
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
@@ -382,7 +381,9 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 <script>
     $(document).ready(function() {
-    $('#my-subscription').DataTable();
+        $('#my-subscription').DataTable();
+        &('body').toggleClass('toggled');
+
 } );
 </script>
 

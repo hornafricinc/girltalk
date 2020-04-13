@@ -1,0 +1,101 @@
+{% extends 'subscriber/subscriber_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container-fluid">
+                <div class="row">
+                      <div class="col s12 m12 l12">
+                          <div class="row">
+                              <div class="col s12"><h2 class="center-align">Start Searching...</h2></div>
+                          </div>
+                          <div class="row">
+                              <div class="col s12 m8 l8">
+                                   <form method="post" action="">
+                              {% csrf_token %}
+                                        {% if messages %}
+                    {% for message in messages %}
+                          <p class="center-align gtallk-error">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                              <div class="row">
+                              <div class="input-field col s12 m4 l3">
+                                  <select name="cat">
+                                   <option value="null">Select Category</option>
+                                    <option value="facebook">Facebook</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="eharmony">eharmony</option>
+                                    <option value="kik">KIK</option>
+                                    <option value="snapchat">Snapchat</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="tinder">Tinder</option>
+                                    <option value="pof">POF</option>
+                                </select>
+                              </div>
+
+                              <div class="input-field col s12 m4 l4">
+                                  <input id="searchT" type="text" class="validate" name="searchTerm">
+                                  <label for="searchT">Enter Search Term</label>
+                              </div>
+                              <div class="input-field col s12 m2 l2">
+                                  <button class="btn btn-block gtallk-btn" type="submit">Search</button>
+                              </div>
+                          </div>
+                               </form>
+                                  <div class="row">
+                                      <div class="col s12 m12 l12">
+                                          <p class="">Available Matching:</p>
+                    <p class="">
+                        <img src="{% static 'images/search/combined.PNG' %}" class="responsive-img">
+                    </p>
+
+                                      </div>
+                                  </div>
+
+                              </div>
+                              <div class="col s12 m4 l4">
+                                   {% if  searchResults %}
+                                  <div class="card">
+                                    <div class="card-content">
+                                      <table>
+
+                                            <thead>
+                                            <tr><th class="center-align gtallk-label">Users with Similar Searches</th></tr>
+                                              <tr>
+                                                  <th class="gtallk-label">Username</th>
+                                                  <th class="gtallk-label">Action</th>
+                                              </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            {% for user in searchResults %}
+                                               <tr><td>{{ user.user.username}}</td><td><a href="{% url 'accounts:chat' user_id=user.user.id %}">Chat</a></td></tr>
+                                           {% endfor %}
+
+                                            </tbody>
+                                      </table>
+                                  </div>
+                                       {% else %}
+                                        <p class="gtallk-error">Your search term did not match any previous searches</p>
+                                  {% endif %}
+
+                              </div>
+                          </div>
+
+                      </div>
+                </div>
+
+            </div>
+             <!--<div class="card-panel">
+                 <div class="card-title center-align"><h5>Business Registration</h5></div>
+                <form method="post">
+                    <div class="row">
+                       <div class="inp"
+                    </div>
+                </form>
+             </div>-->
+        </div>
+    </div>
+</div>
+{% endblock %}

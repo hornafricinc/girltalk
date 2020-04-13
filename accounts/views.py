@@ -231,7 +231,7 @@ def  loadUserDashBoard(request):
                         else:
                             searchTermObject.save()
 
-    return  render(request,'accounts/index.html',{'searchResults':searchResults,'total':len(searchResults),'myFriends':myFriends})
+    return  render(request,'subscriber/matchalgo.html',{'searchResults':searchResults,'total':len(searchResults),'myFriends':myFriends})
 
 
 #Logout
