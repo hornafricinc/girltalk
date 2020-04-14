@@ -50,10 +50,7 @@ def load_homepage(request):
 
 class LoadIndex(TemplateView):
     template_name = 'home.html'
-class LoadSignUp(TemplateView):
-    template_name = 'signup.html'
-class LoadContactUS(TemplateView):
-    template_name = 'contact_us.html'
+
 
 
 
@@ -86,7 +83,7 @@ def receiverDetail(request,user_id):
         chats = Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at')|  Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
     else:
         receiver=None
-    return  render(request,'accounts/messaging.html',{'receiver':receiver,'chats':chats})
+    return  render(request,'subscriber/instant_messaging.html',{'receiver':receiver,'chats':chats})
 
 
 #This is the start of the web application

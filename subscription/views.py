@@ -14,14 +14,14 @@ from girltalk import settings
 @csrf_exempt
 def payment_done(request):
     logoutView(request)
-    return render(request, 'accounts/payment_done.html')
+    return render(request, 'subscriber/payment_done.html')
 
 
 
 @csrf_exempt
 def payment_canceled(request):
     logoutView(request)
-    return render(request, 'accounts/payment_cancelled.html')
+    return render(request, 'subscriber/payment_cancelled.html')
 
 
 
@@ -30,7 +30,7 @@ def subscribe(request):
     if request.method == 'POST':
         request.session['subscription_plan']=request.POST.get('frequency')
         return redirect('subscription:process_subscription')
-    return render(request,'accounts/sunscription.html')
+    return render(request,'subscriber/subscription_plans.html')
 
 
 def process_payment(request):
@@ -63,10 +63,8 @@ def process_payment(request):
     }
 
     form=PayPalPaymentsForm(initial=paypal_dict,button_type='subscribe')
-    return render(request,'accounts/process_subscription.html',locals())
+    return render(request,'subscriber/process_payment.html',locals())
 
 
-class LoadHome(TemplateView):
-    template_name = 'subscriber/matchalgo.html'
 
 

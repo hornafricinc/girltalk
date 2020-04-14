@@ -22,4 +22,6 @@ urlpatterns = [
     path('Subscription/',include('subscription.urls')),
     path('system_admin/',include('system_admin.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
+
+    path('account_management/', include('django.contrib.auth.urls')),
 ]

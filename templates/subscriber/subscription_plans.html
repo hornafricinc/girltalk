@@ -1,0 +1,61 @@
+{% extends 'subscriber/subscriber_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+<div class="row">
+    <div class="col s12 m12 l12">
+        <h4 class="center-align"><u>GIRL TALLK SUBSCRIPTION PLANS</u></h4>
+    </div>
+</div>
+       <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="container">
+              <div class="row">
+                    <div class="col s12 m4 offset-m1">
+                      <div class="card">
+                        <div class="card-content black-text">
+                            <div class="gtallk-card-header">
+                                 <h1 class="card-title center-align">MONTHLY PLAN</h1>
+                                <div class="divider"></div>
+                            </div>
+                            <h3 class="center-align">$7/YEAR</h3>
+                              <p>This package will enable you use
+                          our service after paying a subscription fee of $7 billed every month.</p>
+                        </div>
+                        <div class="card-action">
+                            <form method="post" action="">
+                               {% csrf_token %}
+                               <input type="hidden" name="frequency" value="1">
+                            <button class="btn gtallk-btn btn-block" type="submit">Select</button>
+                           </form>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="col s12 m4 offset-m1">
+                      <div class="card">
+                        <div class="card-content black-text">
+                            <div class="gtallk-card-header">
+                                 <h1 class="card-title center-align">YEARLY PLAN</h1>
+                                <div class="divider"></div>
+                            </div>
+                            <h3 class="center-align">$59/YEAR</h3>
+                             <p>
+                                 This package will give you access to the core features of our application .
+                                 You will be billed every year.
+                             </p>
+                        </div>
+                        <div class="card-action">
+                            <form method="post" action="">
+                               {% csrf_token %}
+                               <input type="hidden" name="frequency" value="12">
+                            <button class="btn gtallk-btn btn-block" type="submit">Select</button>
+                           </form>
+                        </div>
+                      </div>
+                    </div>
+           </div>
+           </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
