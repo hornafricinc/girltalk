@@ -44,8 +44,14 @@
                         </div>
 
                 </div>
-                <div class="card-action">
-                    <button class="btn btn-block" type="submit">Log Admin IN</button>
+               <div class="card-action">
+                    <div class="row valign-wrapper">
+                        <div class="col s12 m6 offset-m3">
+                             <button class="btn btn-block gtallk-btn" type="submit">Log in Admin</button>
+                        </div>
+                    </div>
+
+                    <p class="center-align">Don't have an account ? <a href="{% url 'system_admin:create_account' %}">Login</a> </p>
                 </div>
                 </form>
 

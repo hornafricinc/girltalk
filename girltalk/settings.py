@@ -29,7 +29,7 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','af9ab56c.ngrok.io', 'www.girltallk.com']
 
