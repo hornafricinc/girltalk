@@ -19,4 +19,10 @@ class Messages(models.Model):
 
     class Meta:
         db_table='messages'
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    profile_image_name=models.CharField(max_length=50,blank=False,null=True)
+
+    class Meta:
+        db_table='user_profile'
 

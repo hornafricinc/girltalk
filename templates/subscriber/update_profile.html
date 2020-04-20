@@ -1,0 +1,56 @@
+{% extends 'subscriber/subscriber_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+<div class="row">
+    <div class="col s12 m12 l12">
+        <h4 class="center-align"><u>Update Profile</u></h4>
+        <p class="center-align purple-text">Select one image to be used as a placeholder to your account</p>
+    </div>
+</div>
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+             {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <div class="col s12">
+                                 <script>alert("{{ message }}")</script>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            <div class="col s12 m3">
+                <label>
+                <input name="image_name" type="radio" value="male1.jpg" checked />
+                <span><img src="{% static 'images/avatar/male1.jpg' %}" height="123" width="123"></span>
+              </label>
+            </div>
+            <div class="col s12 m3">
+                <label>
+                <input name="image_name" type="radio" checked value="female.png" />
+                <span><img src="{% static 'images/avatar/female.jpg' %}" height="123" width="123"></span>
+              </label>
+            </div>
+            <div class="col s12 m3">
+                <label>
+                <input name="image_name" type="radio" checked value="male2.jpg" />
+                <span><img src="{% static 'images/avatar/male2.jpg' %}"></span>
+              </label>
+            </div>
+            <div class="col s12 m3">
+                <label>
+                <input name="image_name" type="radio" checked  value="female1.png"/>
+                <span><img src="{% static 'images/avatar/female1.png' %}" height="123" width="123"></span>
+              </label>
+            </div>
+            <div class="col s12 " style="margin-top: 20px">
+                <button type="submit" class="btn btn-block gtallk-btn">Update Avatar</button>
+            </div>
+        </form>
+
+</div>
+
+</div>
+{% endblock %}

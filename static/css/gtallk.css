@@ -19,4 +19,6 @@ option,input{
 .gtallk-error{
     color: deeppink;
 }
-
+.gtallk-success{
+    color:lightgreen;
+}

@@ -15,13 +15,16 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 
 from accounts.forms import LoginForm, UserAccountForm, PasswordResetRequestForm
-from accounts.models import Search, Messages
+from accounts.models import Search, Messages, Profile
 from django.core.mail import send_mail
 
 from girltalk import settings
 from subscription.models import ClientSubscription
 
 #This is the homepage;
+from system_admin.models import AccessCodes
+
+
 def load_homepage(request):
     if request.method== 'POST':
         fname=request.POST['fname']
@@ -90,9 +93,15 @@ def receiverDetail(request,user_id):
 def processSiteEntryCredentials(request):
     access_code=''
     if request.method == 'POST':
-        access_code=request.POST['access_code']
-        if access_code== '555-555':
-            return redirect('accounts:index')
+        user_access_code=request.POST['access_code']
+        try:
+            db_acces_code=AccessCodes.objects.get(status=True)
+            if user_access_code != db_acces_code.access_code:
+                messages.error(request,"Invalid access Code.Please try again by entering a valid access code.")
+            else:
+                return redirect('accounts:index')
+        except AccessCodes.DoesNotExist:
+            messages.error(request, "Invalid access Code.Please try again by entering a valid access code.")
     return render(request,'entry.html')
 
 
@@ -116,20 +125,11 @@ def process_user_signin(request):
         if form.is_valid():
             user=authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password1'])
             if user is not None:
-                login(request, user)
-                return redirect('accounts:dashboard')
-                ''''
-                u1=User.objects.get(username=form.cleaned_data['username'])
-                #Check if user has subscribed
-                exists=ClientSubscription.objects.filter(user=u1).count()
-                if exists >0 :
-                    login(request,user)
-                    return  redirect('dashboard')
+                if user.is_superuser == False:
+                    login(request, user)
+                    return redirect('accounts:dashboard')
                 else:
-                    messages.error(request,"You have not subcribed.Kindly subscribe to enjoy our services")
-                '''
-
-
+                    messages.error(request,'Wrong login Credentials')
             else:
                 messages.error(request,'Wrong username or Password')
 
@@ -145,7 +145,8 @@ def  loadUserDashBoard(request):
     ''''
     My Friends are people who i have ever chatted with.
     '''
-    myFriends=getMyFriends(request,request.user.username)
+    l_user = User.objects.get(username=request.user.username)
+    myFriends = Messages.objects.filter(sender=l_user).count()
     searchTermObject = Search()
     searchTerm = ''
     searchResults=''
@@ -175,7 +176,7 @@ def  loadUserDashBoard(request):
                         Since it exists We have now to query the database for records that 
                         do not include my keyword.
                         '''
-                        searchResults = Search.objects.filter(search_term=searchTerm).filter(
+                        searchResults = Search.objects.filter(search_term_iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
 
                     else:
@@ -264,3 +265,14 @@ def getMyFriends(request,username):
     l_user=User.objects.get(username=username)
     friends=Messages.objects.filter(sender=l_user).count()
     return friends
+#Update PrOfile
+@login_required(login_url='accounts:signin')
+def update_profile(request):
+    if request.method == 'POST':
+        profile_image=request.POST['image_name']
+        user=User.objects.get(pk=request.user.id)
+        UserProfile.objects.create(user=user,profile_image_name=profile_image)
+        messages.error(request,"Profile image has been updated successfully")
+        return redirect('accounts:dashboard')
+    return  render(request,'subscriber/update_profile.html')
+

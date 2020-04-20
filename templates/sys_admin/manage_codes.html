@@ -1,0 +1,87 @@
+{% extends 'sys_admin/sysadmin_base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col s12 m12">
+                <h6>Access Code Management</h6>
+            </div>
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <form method="post" action="">
+                {% csrf_token %}
+
+            <div class="col s12 m4">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <div class="col s12">
+                                 <script>alert("{{ message }}")</script>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="row">
+                    <div class="col s12">
+                        <!-- Modal Trigger -->
+                       <button class="btn btn-block" type="submit" name="generate" value="generate">Generate New Access Code</button>
+                    </div>
+                </div>
+
+            </div>
+                </form>
+            <div class="col s12 m8">
+                <h3 class="center-align">All Access Code</h3>
+                           <h4 class="center-align">Active Code:<span class="gtallk-error">{{ active_code.access_code}}</span> </h4>
+
+
+
+
+                <table class="striped highlight responsive-table">
+                    <thead>
+                       <th>Access Code</th>
+                       <th>Date Generated</th>
+                       <th>Active</th>
+                       <th>Activate</th>
+                       <th>Delete</th>
+                    </thead>
+                    <tbody>
+                    {% for code in codes %}
+                       <tr>
+                           <td>{{ code.access_code }}</td>
+                           <td>{{ code.time_gen }}</td>
+                           {% if code.status == True %}
+                                <td class="gtallk-success">{{ code.status }}</td>
+                               {% else %}
+                               <td class="gtallk-error">{{ code.status }}</td>
+                           {% endif %}
+                         <td>
+                             <form method="post" action="" >
+                                 {% csrf_token %}
+                                   <input type="hidden" value="{{ code.id }}" name="codeID">
+                                  <button class="gtallk-btn" type="submit" name="activate" value="activate">Activate</button>
+                             </form>
+                         </td>
+                        <td>
+                             <form method="post" action="" >
+                                 {% csrf_token %}
+                                   <input type="hidden" value="{{ code.id }}" name="codeID">
+                                  <button class="gtallk-btn" type="submit" name="del" value="del">Delete</button>
+                             </form>
+                         </td>
+
+                       </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+{% endblock %}

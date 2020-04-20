@@ -14,6 +14,7 @@ urlpatterns = [
 
 
     re_path(r'chat/(?P<user_id>\d+)/',views.receiverDetail,name='chat'),
+    path('user_profile/',views.update_profile,name='profile'),
 
 
 ]

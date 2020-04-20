@@ -15,6 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.core.mail.backends.smtp import EmailBackend
 
+
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -24,10 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','60e451f0.ngrok.io', 'www.girltallk.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','af9ab56c.ngrok.io', 'www.girltallk.com']
 
 
 # Application definition
@@ -92,7 +96,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'girltalk',
+        'NAME': 'db_girltallk',
         'USER': 'root',
         'PASSWORD': 'Korir9993',
         'HOST': '',
