@@ -29,7 +29,7 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','af9ab56c.ngrok.io', 'www.girltallk.com']
 
@@ -84,14 +84,14 @@ WSGI_APPLICATION = 'girltalk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-''''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
+'''''
 
 DATABASES = {
     'default': {
@@ -103,13 +103,14 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+'''
 
 
 
 
 #PAYPAL DETAILS
-PAYPAL_RECEIVER_EMAIL = 'sb-169xv1228508@business.example.com'
-PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = 'knovitecards@gmail.com'
+PAYPAL_TEST = False
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
