@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from accounts.forms import UserAccountForm, LoginForm
+from subscription.models import SubscriberDetails
 from system_admin.models import AccessCodes
 
 '''
@@ -121,6 +122,10 @@ def get_all_users(request):
 '''
 
 def get_all_transactions(request):
-    return render(request,'sys_admin/manage_finances.html')
+    try:
+        all_data=SubscriberDetails.objects.select_related('user').all()
+    except SubscriberDetails.DoesNotExist:
+        all_data=None
+    return render(request,'sys_admin/manage_finances.html',{'all_data':all_data})
     
 

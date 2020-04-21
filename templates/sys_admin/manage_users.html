@@ -26,7 +26,6 @@
                        <th>Last Name</th>
                        <th>Email Address</th>
                        <th>Subscription Status</th>
-                       <th>Deactivate</th>
                     </thead>
                     <tbody>
 
@@ -35,6 +34,14 @@
                            <td>{{ user.first_name }}</td>
                            <td>{{ user.last_name }}</td>
                            <td>{{ user.email }}</td>
+                           <td>
+                               {% if user.clientsubscription.status %}
+                                   Active
+                                   {% else %}
+                                   Inactive
+                               {% endif %}
+
+                               </td>
                        </tr>
                     {% endfor %}
                     </tbody>

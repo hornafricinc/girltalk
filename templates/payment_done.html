@@ -1,0 +1,20 @@
+{% extends 'sys_admin/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="card">
+                    <h3 class="card-title center-align">SUBSCRIPTION STATUS</h3>
+                    <div class="card-content">
+                <p>Thank you for subscribing with <a href="www.girltallk.com">girl tallk</a>.It will take a few minutes before your payment
+                is  processed.Wait for a few minutes then log in.
+                </p>
+                        </div>
+                    <div class="card-action">
+                <p><a href="{% url 'accounts:signin' %}" class="btn gtallk-btn">Login Here</a></p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

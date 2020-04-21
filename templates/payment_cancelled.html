@@ -1,0 +1,20 @@
+{% extends 'sys_admin/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                    <div class="card">
+                    <h3 class="card-title center-align">SUBSCRIPTION STATUS</h3>
+                    <div class="card-content">
+                <p>OOPS! Your subscription was not succeesful.Ensure that you have enough balance to enable you subscribe and enjoy our services
+
+                </p>
+                 </div>
+                    </div>
+                    <div class="card-action">
+                <p><a href="{% url 'accounts:signin' %}" class="btn gtallk-btn">Login Here</a></p>
+                        </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

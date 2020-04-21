@@ -20,7 +20,8 @@
                                {% if chat.sender == request.user %}
                                    <div class="row valign-wrapper">
                                 <div class="col s2">
-                                    <img src="{% static 'images/avatar/female1.png' %}" class="circle responsive-img">
+                                    <img src="{% static 'images/avatar/' %}{{ user.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
+
                                 </div>
                                 <div class="col s10">
                                      <p>{{ chat.message_text }}</p>
@@ -33,7 +34,9 @@
                                      <p class="right-align">{{ chat.message_text }}</p>
                                 </div>
                                   <div class="col s2">
-                                    <img src="{% static 'images/avatar/male.jpg' %}" class="circle responsive-img">
+                                       <img src="{% static 'images/avatar/' %}{{ receiver.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
+
+
                                 </div>
                             </div>
                             <!--End of Second Row-->
@@ -47,7 +50,7 @@
 
                         </div>
                         <div class="card-action">
-                              <form method="post" action="">
+                              <form method="post" action="" class="chat-form">
                                 {% csrf_token %}
                             <div class="row">
                                 <div class="input-field col s12 m10">

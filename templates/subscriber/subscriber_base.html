@@ -9,6 +9,7 @@
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
+      <meta http-equiv="refresh" content="30"/>
       {% load static %}
     <title>GirlTallk |Search,Match and Chat</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -38,7 +39,7 @@
           <div class="nav-wrapper">
             <ul class="navbar-list right">
               <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">{{ user.get_username }}<span>
-                  <img src="{% static 'images/avatar/' %}{{ user.profile.profile_image_name }} " height="30" width="30">
+                  <img src="{% static 'images/avatar/' %}{{ user.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
               </span><span class="material-icons">keyboard_arrow_down</span> </a></li>
 
             </ul>
@@ -112,6 +113,15 @@
     <script src="{% static 'controlled/js/dashboard-modern.js' %}"></script>
     <script src="{% static 'controlled/js/intro.min.js' %}"></script>
     <!-- END PAGE LEVEL JS-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#chat').submit(function (e) {
+            e.preventDefault();
+
+        })
+
+    });
+</script>
 
   </body>
 </html>

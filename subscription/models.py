@@ -12,7 +12,6 @@ class SubscriberDetails(models.Model):
     amount=models.DecimalField(decimal_places=4,max_digits=10,blank=False)
     payer_email=models.CharField(max_length=50,blank=False)
     subscription_date=models.DateTimeField()
-    due_date=models.DateTimeField()
 
     class Meta:
         db_table='subscriptions'

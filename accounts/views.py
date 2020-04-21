@@ -24,52 +24,9 @@ from subscription.models import ClientSubscription
 #This is the homepage;
 from system_admin.models import AccessCodes
 
-
-def load_homepage(request):
-    if request.method== 'POST':
-        fname=request.POST['fname']
-        lname = request.POST['lname']
-        email = request.POST['email']
-        username = request.POST['username']
-        password = request.POST['pass']
-        cpass = request.POST['cpass'];
-        if password != cpass:
-            messages.error(request,"Your passwords do not match.Please enter matching passwords")
-        else:
-            #Check if email exists
-            email_exists=User.objects.filter(email=email)
-            if email_exists.count():
-                messages.error(request,"Email address has been taken.Try with a new email address")
-            else:
-                username_exists=User.objects.filter(username=username)
-                if username_exists.count():
-                    messages.error(request,"Username has been taken.Try again with a different username")
-                else:
-                    #We save the details now.
-                    User.objects.create_user(username,first_name=fname,last_name=lname,email=email,password=make_password(password))
-                    messages.success(request,"Account Created Successfully.Proceed to subscription")
-    return render(request,'home.html',locals())
-
-
 class LoadIndex(TemplateView):
     template_name = 'home.html'
 
-
-
-
-
-#This is the function to perform search on the database and present users who have searched before.
-def processandPresentSearch(request):
-    searchTermObject=Search()
-    searchTerm=''
-    if request.method == 'POST':
-        searchTerm=request.POST['searchTerm']
-        searchTermObject.search_term=searchTerm
-        user=User.objects.get(pk=1)
-        searchTermObject.user_id=user.pk
-        searchTermObject.save()
-        messages.success(request,'Search term successfully inserted')
-    return render(request,'algorithm.html',{'name':searchTerm})
 #Receiver Details
 def receiverDetail(request,user_id):
     receiver=None
@@ -170,21 +127,21 @@ def  loadUserDashBoard(request):
 
                     # check if the term is already in the database.
                     exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
-                        search_term=searchTerm).count()
+                        search_term__iexact=searchTerm).count()
                     if exists > 0:
                         ''''
                         Since it exists We have now to query the database for records that 
                         do not include my keyword.
                         '''
-                        searchResults = Search.objects.filter(search_term_iexact=searchTerm).filter(
+                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
 
                     else:
                         # Fetch results from database.
-                        searchResults = Search.objects.filter(search_term=searchTerm).filter(
+                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
                         if (len(searchResults) == 1):
-                            singleResults = Search.objects.filter(search_term=searchTerm).filter(
+                            singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                                 search_group=category).exclude(user=request.user.id).first()
                             subject = "We Found a Match at Girl Tallk"
                             message = request.user.username + " " + searchTerm + " found a match in Girl Tallk.Please visit the website to initiate a chat"
@@ -205,21 +162,21 @@ def  loadUserDashBoard(request):
 
                     # check if the term is already in the database.
                     exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
-                        search_term=searchTerm).count()
+                        search_term__iexact=searchTerm).count()
                     if exists > 0:
                         ''''
                         Since it exists We have now to query the database for records that 
                         do not include my keyword.
                         '''
-                        searchResults = Search.objects.filter(search_term=searchTerm).filter(
+                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
 
                     else:
                         # Fetch results from database.
-                        searchResults = Search.objects.filter(search_term=searchTerm).filter(
+                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
                         if (len(searchResults) == 1):
-                            singleResults = Search.objects.filter(search_term=searchTerm).filter(
+                            singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                                 search_group=category).exclude(user=request.user.id).first()
                             subject = "We Found a Match at Girl Tallk"
                             message = request.user.username + " " + searchTerm + " found a match in Girl Tallk.Please visit the website to initiate a chat"
@@ -271,7 +228,7 @@ def update_profile(request):
     if request.method == 'POST':
         profile_image=request.POST['image_name']
         user=User.objects.get(pk=request.user.id)
-        UserProfile.objects.create(user=user,profile_image_name=profile_image)
+        Profile.objects.create(user=user,profile_image_name=profile_image)
         messages.error(request,"Profile image has been updated successfully")
         return redirect('accounts:dashboard')
     return  render(request,'subscriber/update_profile.html')

@@ -18,18 +18,16 @@ from subscription.models import ClientSubscription, SubscriberDetails
 
 
 @csrf_exempt
-@login_required(login_url='accounts:signin')
 def payment_done(request):
     logoutView(request)
-    return render(request, 'subscriber/payment_done.html')
+    return render(request, 'payment_done.html')
 
 
 
 @csrf_exempt
-@login_required(login_url='accounts:signin')
 def payment_canceled(request):
     logoutView(request)
-    return render(request, 'subscriber/payment_cancelled.html')
+    return render(request, 'payment_cancelled.html')
 
 
 
@@ -79,27 +77,24 @@ def payment_received(sender, **kwargs):
     if ipn_obj.txn_type == "subscr_payment":
         user = User.objects.get(username=ipn_obj.custom)
         ClientSubscription.objects.create(user=user, status=True)
-        plan = ""
-        plan_i = ""
-        if (ipn_obj.mc_gross == 59.00):
-            plan = "YEARLY"
-            plan_i = "m"
+        subscribe_o = SubscriberDetails()
+        s_plan=""
+        if ipn_obj.mc_gross == 7:
+            s_plan="M"
+
         else:
-            plan = "MONTHLY"
-            plan_i = "y"
-        datetime_object = datetime.strptime(ipn_obj.subscr_date, '%m/%d/%y %H:%M:%S')
-        my_due_date = datetime_object + datetime.timedelta(days=0)
-        if plan_i == "m":
-            my_due_date = datetime_object + datetime.timedelta(days=30)
-        else:
-            my_due_date = datetime_object + datetime.timedelta(days=365)
-
-        SubscriberDetails.objects.create(user=user,txn_id=ipn_obj.txn_id,s_plan=plan,amount=ipn_obj.mc_gross,subscription_date=ipn_obj.subscr_date,due_date=my_due_date)
+            s_plan="Y"
 
 
 
+        subscribe_o.txn_id = ipn_obj.txn_id
+        subscribe_o.user = user
+        subscribe_o.s_plan = s_plan
+        subscribe_o.amount = ipn_obj.mc_gross
+        subscribe_o.payer_email = ipn_obj.payer_email
+        subscribe_o.subscription_date = ipn_obj.payment_date
 
-
+        subscribe_o.save()
 
 
 valid_ipn_received.connect(payment_received)
