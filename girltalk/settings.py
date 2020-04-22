@@ -29,7 +29,7 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','www.girltallk.com']
 
@@ -84,24 +84,17 @@ WSGI_APPLICATION = 'girltalk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-'''
+
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Elcapo7$db_girltallk',
-        'USER': 'root',
+        'USER': 'Elcapo7',
         'PASSWORD': '*&girltallk_db#@',
-        'HOST': '',
-        'PORT': '3306',
+        'HOST': 'Elcapo7.mysql.pythonanywhere-services.com',
+
     }
 }
 
@@ -150,7 +143,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'talkgirl160@gmail.com'
-EMAIL_HOST_PASSWORD = 'Korir9993'
+EMAIL_HOST_PASSWORD = 'gkstrxulhfbopbor'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 

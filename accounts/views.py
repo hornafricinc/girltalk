@@ -1,20 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
+from django.db.models import Q
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
 from django.utils.html import format_html
-from django.views.generic import TemplateView, FormView
-from paypal.standard.forms import PayPalPaymentsForm
+from django.views.generic import TemplateView
 
-
-from accounts.forms import LoginForm, UserAccountForm, PasswordResetRequestForm
+from accounts.forms import LoginForm, UserAccountForm
 from accounts.models import Search, Messages, Profile
 from django.core.mail import send_mail
 
@@ -32,6 +28,7 @@ def receiverDetail(request,user_id):
     receiver=None
     receiver_id=int(user_id)
     userdetail=User.objects.filter(pk=receiver_id)
+    myFriends=getMyFriends(request.user.username)
     chats = Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at') | Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
     if len(userdetail)>0:
         receiver=userdetail[0]
@@ -43,7 +40,7 @@ def receiverDetail(request,user_id):
         chats = Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at')|  Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
     else:
         receiver=None
-    return  render(request,'subscriber/instant_messaging.html',{'receiver':receiver,'chats':chats})
+    return  render(request,'subscriber/instant_messaging.html',{'receiver':receiver,'chats':chats,'myFriends':myFriends})
 
 
 #This is the start of the web application
@@ -103,7 +100,7 @@ def  loadUserDashBoard(request):
     My Friends are people who i have ever chatted with.
     '''
     l_user = User.objects.get(username=request.user.username)
-    myFriends = Messages.objects.filter(sender=l_user).count()
+    myFriends = getMyFriends(request.user.username)
     searchTermObject = Search()
     searchTerm = ''
     searchResults=''
@@ -188,7 +185,6 @@ def  loadUserDashBoard(request):
 
     return  render(request,'subscriber/matchalgo.html',{'searchResults':searchResults,'total':len(searchResults),'myFriends':myFriends})
 
-
 #Logout
 def logoutView(request):
     logout(request)
@@ -217,19 +213,39 @@ Process Subscription
 
 
 
-#get my friends
-def getMyFriends(request,username):
+
+''''
+****************GET MY FRIENDS********************
+'''
+def getMyFriends(username):
     l_user=User.objects.get(username=username)
-    friends=Messages.objects.filter(sender=l_user).count()
-    return friends
+    friends=Messages.objects.all().filter(Q(receiver=l_user) | Q(sender=l_user)).exclude(receiver=l_user).distinct()
+
+    friendsDict={}
+    for friend in friends:
+        if friend.receiver.id in friendsDict.values():
+            pass
+        else:
+            friendsDict[friend.receiver.id]=friend.receiver.username
+
+    #friends=Messages.objects.select_related('receiver').all().exclude(receiver=l_user).distinct()
+    return  friendsDict
 #Update PrOfile
 @login_required(login_url='accounts:signin')
 def update_profile(request):
     if request.method == 'POST':
-        profile_image=request.POST['image_name']
-        user=User.objects.get(pk=request.user.id)
-        Profile.objects.create(user=user,profile_image_name=profile_image)
-        messages.error(request,"Profile image has been updated successfully")
-        return redirect('accounts:dashboard')
+        try:
+            Profile.objects.get(user=request.user)
+            Profile.objects.filter(user=request.user).update(profile_image_name=request.POST['image_name'])
+            return redirect('accounts:dashboard')
+        except Profile.DoesNotExist:
+            profile_image=request.POST['image_name']
+            user=User.objects.get(pk=request.user.id)
+            Profile.objects.create(user=user,profile_image_name=profile_image)
+            return redirect('accounts:dashboard')
     return  render(request,'subscriber/update_profile.html')
+
+
+
+
 

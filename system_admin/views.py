@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from accounts.forms import UserAccountForm, LoginForm
+from accounts.models import Profile
 from subscription.models import SubscriberDetails
 from system_admin.models import AccessCodes
 
@@ -127,5 +128,19 @@ def get_all_transactions(request):
     except SubscriberDetails.DoesNotExist:
         all_data=None
     return render(request,'sys_admin/manage_finances.html',{'all_data':all_data})
+
+#This is the update on Admin profile
+def update_admin_profile(request):
+    if request.method == 'POST':
+        try:
+            Profile.objects.get(user=request.user)
+            Profile.objects.filter(user=request.user).update(profile_image_name=request.POST['image_name'])
+            return redirect('system_admin:admin_dash')
+        except Profile.DoesNotExist:
+            profile_image=request.POST['image_name']
+            user=User.objects.get(pk=request.user.id)
+            Profile.objects.create(user=user,profile_image_name=profile_image)
+            return redirect('system_admin:admin_dash')
+    return  render(request,'sys_admin/update_profile.html')
     
 

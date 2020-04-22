@@ -62,6 +62,18 @@
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan" href="{% url 'accounts:dashboard' %}" ><i class="material-icons">home</i><span class="menu-title" data-i18n="Dashboard">DashBoard</span></a>
          </li>
+          <li class="navigation-header"><a class="navigation-header-text">My Friends </a><i class="navigation-header-icon material-icons">more_horiz</i>
+        </li>
+          {% if myFriends %}
+              {% for key,value  in myFriends.items %}
+                <li class="bold"><a class="waves-effect waves-cyan " href="{% url 'accounts:chat' user_id=key %}"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">{{ value }}</span></a>
+                </li>
+              {% endfor %}
+
+              {% else %}
+               <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">No Friends</span></a></li>
+          {% endif %}
+
       </ul>
       <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
     </aside>
