@@ -27,8 +27,9 @@
                        <th>Account Email Address</th>
                        <th>Transaction ID</th>
                        <th>Amount</th>
-                       <th>Transaction ID</th>
-                       <th>Date Payed</th>
+                       <th>SUBSCRIPTION PLAN</th>
+                       <th>PAYER EMAIL ADDRESS</th>
+                       <th>SUBSCRIPTION DATE</th>
                     </thead>
                     <tbody>
 
@@ -38,9 +39,10 @@
                            <td>{{ user_data.user.last_name }}</td>
                            <td>{{ user_data.user.email }}</td>
                            <td>{{ user_data.txn_id }}</td>
-                           <td>{{ user_data.s_plan }}</td>
                            <td>{{ user_data.amount }}</td>
+                           <td>{{ user_data.s_plan }}</td>
                            <td>{{ user_data.payer_email }}</td>
+                           <td>{{ user_data.subscription_date }}</td>
                        </tr>
                     {% endfor %}
                     </tbody>

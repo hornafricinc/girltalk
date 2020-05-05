@@ -6,36 +6,37 @@
         <div class="col s12 m12 l12">
             <div class="container">
               <div class="row">
-                    <div class="col s12 m8 offset-m2">
-                      <div class="card">
-                        <div class="card-content black-text">
-                            <div class="gtallk-card-header">
-                                 <span class="card-title"> {% if receiver is not None %}
+               <div class="col s12 m8 offset-m2">
+       <div class="card">
+                <div class="card-content" >
+                    <span class="center-align">  <span class="card-title"> Chat with: {% if receiver is not None %}
                                     <b>{{ receiver.username }}</b> | <span class="card-title" id="ct"></span>
                                {% endif %}</span>
-                                <div class="divider"></div>
-                            </div>
-                         {% if chats %}
+                                <div class="divider"></div></span>
+                    <div class="chats">
+                        {% if chats %}
                            {% for chat in chats %}
                                {% if chat.sender == request.user %}
                                    <div class="row valign-wrapper">
-                                <div class="col s2">
+                                    <div class="col s2">
                                     <img src="{% static 'images/avatar/' %}{{ user.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
 
                                 </div>
+
                                 <div class="col s10">
-                                     <p>{{ chat.message_text }}</p>
+                                     <p style="color: blueviolet">{{ chat.message_text }}</p>
                                 </div>
                             </div>
                                    {% else %}
                                     <!--SECOND ROW-->
                              <div class="row valign-wrapper">
-                                <div class="col s10">
-                                     <p class="right-align">{{ chat.message_text }}</p>
-                                </div>
-                                  <div class="col s2">
-                                       <img src="{% static 'images/avatar/' %}{{ receiver.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
 
+
+                                <div class="col s10">
+                                     <p class="right-align" style="color: deeppink" >{{ chat.message_text }}</p>
+                                </div>
+                              <div class="col s2">
+                                    <img src="{% static 'images/avatar/' %}{{ receiver.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
 
                                 </div>
                             </div>
@@ -46,25 +47,29 @@
                            <p>There are no chats</p>
                        {% endif %}
 
-
-
-                        </div>
-                        <div class="card-action">
-                              <form method="post" action="" class="chat-form">
-                                {% csrf_token %}
-                            <div class="row">
-                                <div class="input-field col s12 m10">
-                                      <textarea id="chatText" class="materialize-textarea" name="message"></textarea>
-                                      <label for="chatText">Enter Text</label>
-                                </div>
-                                <div class="input-field col s12 m2">
-                                    <button class="btn btn-block gtallk-btn" type="submit">Send</button>
-                                </div>
-                            </div>
-                              </form>
-                        </div>
-                      </div>
                     </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="form">
+                    <form method="post" action="">
+
+                        {% csrf_token %}
+                        <div class="input-field col s8 m8 l8">
+                            <input type="text" name="message" class="validate" id="tumeet-text" style="border: 1px solid pink;border-radius: 25px;text-align: center;padding: 1px;color: black" placeholder="Type your text here" >
+                        </div>
+                        <div class="input-field col s4 l4 m4">
+                             <button class="btn-floating btn-sm waves-effect waves-light red" type="submit"><i class="material-icons right">send</i></button>
+                        </div>
+                    </form>
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+    </div>
+
            </div>
            </div>
     </div>

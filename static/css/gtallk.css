@@ -22,3 +22,10 @@ option,input{
 .gtallk-success{
     color:lightgreen;
 }
+.terms{
+    color: white !important;
+
+}
+.terms a:hover{
+    color: deeppink;
+}

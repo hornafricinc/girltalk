@@ -20,16 +20,27 @@ from subscription.models import ClientSubscription
 #This is the homepage;
 from system_admin.models import AccessCodes
 
+restricted_numbers=['14072096283','407.209.6283','407.782.0157','4077820157']
+
 class LoadIndex(TemplateView):
     template_name = 'home.html'
 
+class TermsAndConditions(TemplateView):
+    template_name = 'termsandconditions.html'
+class PrivacyPolicy(TemplateView):
+    template_name = 'privacy_policy.html'
+
+def fetch_chats(request,user_id):
+    chats= Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at') | Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
+    return  chats
 #Receiver Details
+
 def receiverDetail(request,user_id):
     receiver=None
     receiver_id=int(user_id)
     userdetail=User.objects.filter(pk=receiver_id)
     myFriends=getMyFriends(request.user.username)
-    chats = Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at') | Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
+    chats =fetch_chats(request,user_id)
     if len(userdetail)>0:
         receiver=userdetail[0]
         ''''
@@ -37,7 +48,7 @@ def receiverDetail(request,user_id):
         '''
         processChat(request,user_id)
         #Get the latest results
-        chats = Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at')|  Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
+        chats =fetch_chats(request,user_id) #Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at')|  Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
     else:
         receiver=None
     return  render(request,'subscriber/instant_messaging.html',{'receiver':receiver,'chats':chats,'myFriends':myFriends})
@@ -102,16 +113,19 @@ def  loadUserDashBoard(request):
     l_user = User.objects.get(username=request.user.username)
     myFriends = getMyFriends(request.user.username)
     searchTermObject = Search()
-    searchTerm = ''
+    entered_term = ''
     searchResults=''
     if request.method == 'POST':
-        searchTerm = request.POST['searchTerm']
+        entered_term = request.POST['searchTerm']
+        searchTerm=entered_term.lstrip()
         category = request.POST['cat']
         if(category == 'null'):
             messages.error(request,'You have not selected any category')
         else:
-            if (searchTerm == ''):
+            if searchTerm == '':
                 messages.error(request,'You have not entered a term to search')
+            elif searchTerm in restricted_numbers:
+                messages.error(request,'There are no results for this search')
             else:
                 u1 = User.objects.get(username=request.user.username)
                 # Check if user has subscribed
@@ -175,8 +189,8 @@ def  loadUserDashBoard(request):
                         if (len(searchResults) == 1):
                             singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                                 search_group=category).exclude(user=request.user.id).first()
-                            subject = "We Found a Match at Girl Tallk"
-                            message = request.user.username + " " + searchTerm + " found a match in Girl Tallk.Please visit the website to initiate a chat"
+                            subject = "WE FOUND A MATCH FOR SEARCH TERM"
+                            message = request.user.username + ",  we found a match for Search Term.Please visit us to initiate a chat"
                             receiver = singleResults.user.email
                             send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
                             searchTermObject.save()
