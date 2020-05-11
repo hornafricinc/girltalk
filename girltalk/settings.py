@@ -29,9 +29,9 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['www.girltallk.com']
+ALLOWED_HOSTS = ['wwww.girltallk.com']
 
 
 # Application definition
@@ -97,8 +97,11 @@ DATABASES = {
 
     }
 }
+
+
+
 ''''
-LOCAL DATABASE SYSTEM
+LOCAL DATABASE
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -109,7 +112,10 @@ DATABASES = {
 
     }
 }
+
 '''
+
+
 
 
 

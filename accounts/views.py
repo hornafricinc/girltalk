@@ -20,7 +20,7 @@ from subscription.models import ClientSubscription
 #This is the homepage;
 from system_admin.models import AccessCodes
 
-restricted_numbers=['14072096283','407.209.6283','407.782.0157','4077820157']
+restricted_numbers=['14072096283','407.209.6283','407.782.0157','4077820157','@iamshagritty' '@producertybandit','@IAMSHAGRITTY','@PRODUCERTYBANDIT']
 
 class LoadIndex(TemplateView):
     template_name = 'home.html'
