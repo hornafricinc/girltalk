@@ -1,0 +1,85 @@
+{% extends 'sys_admin/sysadmin_base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col s12 m12">
+                <h6>System Users Management</h6>
+
+            </div>
+        </div>
+
+    <div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h3><u>Details OF USERS</u></h3>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col s12 m6 l6 offset-l3 offset-m3">
+                <p>FULL NAME</p>
+                <h6><b>{{ userdetails.first_name }} {{ userdetails.last_name  }}</b></h6>
+                 <p>EMAIL ADDRESS</p>
+                <h6><b>{{ userdetails.email }} </b></h6>
+                 <p>USERNAME</p>
+                <h6><b>{{ userdetails.username }} </b></h6>
+                <p>SUBSCRIPTION STATUS</p>
+                <h6>
+                    <b>
+                     {% if userdetails.clientsubscription.status %}
+                                   Active
+                                   {% else %}
+                                   Inactive
+                               {% endif %}
+
+                    </b></h6>
+            <p>ACCOUNT STATUS</p>
+                <h6>
+                    <b>
+                     {% if userdetails.is_active %}
+                                   Active
+                                   {% else %}
+                                   Inactive
+                               {% endif %}
+
+                    </b></h6>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col s12 m6 l6 offset-m3 offset-l3">
+            <form method="post" action="">
+                {% csrf_token %}
+             {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <div class="col s12">
+                                 <script>alert("{{ message }}")</script>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <input type="hidden" value="{{ userdetails.id }}" name="userID">
+
+                     {% if userdetails.is_active %}
+                        <button class="btn waves-effect waves-light" type="submit" name="deactivate" value="deactivate">Deactivate Account
+                            <i class="material-icons right">send</i>
+                        </button>
+                         {% else %}
+                         <button class="btn waves-effect waves-light" type="submit" name="activate" value="activate">Activate Account
+                            <i class="material-icons right">send</i>
+                        </button>
+
+                     {% endif %}
+
+                </form>
+        </div>
+    </div>
+
+
+
+    </div>
+    </div>
+
+
+{% endblock %}

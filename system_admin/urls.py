@@ -12,4 +12,6 @@ urlpatterns=[
      path('accounts/manage_system_users/',views.get_all_users,name='manage_users'),
      path('accounts/manage_finances/',views.get_all_transactions,name='manage_finances'),
      path('accounts/update_profile/', views.update_admin_profile, name='update_profile'),
+     path('accounts/manage_system_users/<int:user_id>/',views.user_detail,name='user_detail'),
+
 ]

@@ -31,7 +31,7 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['wwww.girltallk.com']
+ALLOWED_HOSTS = ['www.girltallk.com']
 
 
 # Application definition
@@ -99,9 +99,10 @@ DATABASES = {
 }
 
 
-
 ''''
 LOCAL DATABASE
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -123,8 +124,7 @@ DATABASES = {
 
 
 
-#PAYPAL DETAILS
-#PAYPAL_RECEIVER_EMAIL ='sb-169xv1228508@business.example.com'
+
 PAYPAL_RECEIVER_EMAIL = 'knovitecards@gmail.com'
 PAYPAL_TEST = False
 

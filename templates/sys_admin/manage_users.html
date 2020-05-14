@@ -26,10 +26,12 @@
                        <th>Last Name</th>
                        <th>Email Address</th>
                        <th>Subscription Status</th>
+                       <th>Detail</th>
                     </thead>
                     <tbody>
 
                     {% for user in users %}
+
                        <tr>
                            <td>{{ user.first_name }}</td>
                            <td>{{ user.last_name }}</td>
@@ -42,7 +44,9 @@
                                {% endif %}
 
                                </td>
+                           <td><a href="{% url 'system_admin:user_detail' user.id %}">View</a></td>
                        </tr>
+
                     {% endfor %}
                     </tbody>
                 </table>

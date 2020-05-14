@@ -4,9 +4,12 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Sum
 
 # Create your views here.
+from django.views.generic import DetailView
+
 from accounts.forms import UserAccountForm, LoginForm
 from accounts.models import Profile
 from subscription.models import SubscriberDetails
@@ -44,7 +47,11 @@ def create_account(request):
 @login_required(login_url='system_admin:login')
 def load_admin_dash(request):
     #get_total_users(request.user.username)
-    return render(request,'sys_admin/dashboard.html')
+    total_users = User.objects.all().exclude(is_superuser=True).count()
+    total_amount=SubscriberDetails.objects.aggregate(Sum('amount'))
+
+
+    return render(request,'sys_admin/dashboard.html',{'total_users':str(total_users),'total_amount':total_amount})
 
 def load_payments_details(request):
     return render(request,'accounts/admin/payment_details.html')
@@ -143,4 +150,25 @@ def update_admin_profile(request):
             return redirect('system_admin:admin_dash')
     return  render(request,'sys_admin/update_profile.html')
     
+#Details of the individual users
+def user_detail(request,user_id):
+    if request.method == 'POST':
+        if request.POST.get("deactivate")== 'deactivate':
+            deactivate_user_account(request, request.POST['userID'])
+        elif request.POST.get('activate') == 'activate':
+            activate_user_account(request,request.POST['userID'])
+
+    userdetails=get_object_or_404(User,pk=user_id)
+    return render(request,'sys_admin/user_detail.html',{'userdetails':userdetails})
+#Activate user account Function and deactivate
+def activate_user_account(request,id):
+    User.objects.filter(pk=id).update(is_active=True)
+    messages.success(request, "User account has been successfully activated")
+def deactivate_user_account(request,id):
+    User.objects.filter(pk=id).update(is_active=False)
+    messages.success(request, "User account has been successfully deactivated")
+
+
+
+
 
