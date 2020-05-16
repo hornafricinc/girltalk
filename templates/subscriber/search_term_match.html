@@ -8,7 +8,7 @@
                 <div class="row">
                       <div class="col s12 m12 l12">
                           <div class="row">
-                              <div class="col s12"><h2 class="center-align">Start Searching...</h2></div>
+                              <div class="col s12"><h2 class="center-align">Select Search Term and Click Search</h2></div>
                           </div>
                           <div class="row">
                               <div class="col s12 m8 l8">
@@ -20,23 +20,18 @@
                     {% endfor %}
                 {% endif %}
                               <div class="row">
-                              <div class="input-field col s12 m4 l3">
-                                  <select name="cat">
-                                   <option value="null">Select Category</option>
-                                    <option value="facebook">Facebook</option>
-                                    <option value="phone">Phone</option>
-                                    <option value="eharmony">eharmony</option>
-                                    <option value="kik">KIK</option>
-                                    <option value="snapchat">Snapchat</option>
-                                    <option value="instagram">Instagram</option>
-                                    <option value="tinder">Tinder</option>
-                                    <option value="pof">POF</option>
-                                </select>
-                              </div>
+                              <div class="input-field col s12 m6 l6">
+                                  <select name="searchTerm">
+                                   <option value="null">Select Term</option>
+                                      {% if search_terms  %}
+                                          {% for search_term in search_terms %}
+                                          <option value="{{ search_term.search_group }}-{{ search_term.search_term }}">{{ search_term.search_group }}-{{ search_term.search_term }}</option>
+                                          {% endfor %}
+                                          {% else %}
+                                          <option>No term</option>
+                                      {% endif %}
 
-                              <div class="input-field col s12 m4 l4">
-                                  <input id="searchT" type="text" class="validate" name="searchTerm">
-                                  <label for="searchT">Enter Search Term</label>
+                                </select>
                               </div>
                               <div class="input-field col s12 m2 l2">
                                   <button class="btn btn-block gtallk-btn" type="submit">Search</button>
@@ -45,10 +40,8 @@
                                </form>
                                   <div class="row">
                                       <div class="col s12 m12 l12">
-                                          <p class="">Available Matching:</p>
-                    <p class="">
-                        <img src="{% static 'images/search/combined.PNG' %}" class="responsive-img">
-                    </p>
+                                          <p class="">Please select your search term and users who have been searching for the same term with same category will be listed.</p>
+
 
                                       </div>
                                   </div>
@@ -57,7 +50,7 @@
                               <div class="col s12 m4 l4">
                               <div class="row">
                                   <div class="col s12 m12">
-                                      {% if  searchResults %}
+                                      {% if  searches %}
                                   <div class="card">
                                     <div class="card-content">
                                       <table>
@@ -71,7 +64,7 @@
                                             </thead>
 
                                             <tbody>
-                                            {% for user in searchResults %}
+                                            {% for user in searches %}
                                                <tr><td>{{ user.user.username}}</td><td><a href="{% url 'accounts:chat' user_id=user.user.id %}">Chat</a></td></tr>
                                            {% endfor %}
 

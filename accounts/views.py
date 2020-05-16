@@ -151,12 +151,14 @@ def  loadUserDashBoard(request):
                         # Fetch results from database.
                         searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
-                        if (len(searchResults) == 1):
+                        if len(searchResults) == 1:
                             singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                                 search_group=category).exclude(user=request.user.id).first()
                             subject = "We Found a Match at Girl Tallk"
-                            message = request.user.username + " " + searchTerm + " found a match in Girl Tallk.Please visit the website to initiate a chat"
                             receiver = singleResults.user.email
+                            user = User.objects.get(email=receiver)
+                            message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
+
                             send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
                             searchTermObject.save()
                         else:
@@ -186,12 +188,15 @@ def  loadUserDashBoard(request):
                         # Fetch results from database.
                         searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                             search_group=category).exclude(user=request.user.id)
-                        if (len(searchResults) == 1):
+                        if len(searchResults) == 1:
                             singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
                                 search_group=category).exclude(user=request.user.id).first()
                             subject = "WE FOUND A MATCH FOR SEARCH TERM"
-                            message = request.user.username + ",  we found a match for Search Term.Please visit us to initiate a chat"
                             receiver = singleResults.user.email
+                            user=User.objects.get(email=receiver)
+
+                            message = user.username + ",  we found a match for Search Term.Please visit us and start chatting"
+
                             send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
                             searchTermObject.save()
                         else:
@@ -247,6 +252,7 @@ def getMyFriends(username):
 #Update PrOfile
 @login_required(login_url='accounts:signin')
 def update_profile(request):
+    myFriends = getMyFriends(request.user.username)
     if request.method == 'POST':
         try:
             Profile.objects.get(user=request.user)
@@ -257,7 +263,26 @@ def update_profile(request):
             user=User.objects.get(pk=request.user.id)
             Profile.objects.create(user=user,profile_image_name=profile_image)
             return redirect('accounts:dashboard')
-    return  render(request,'subscriber/update_profile.html')
+    return  render(request,'subscriber/update_profile.html',{'myFriends':myFriends})
+
+#Def users Search Terms;
+@login_required(login_url='accounts:signin')
+def get_matching_users(request):
+    search_terms=Search.objects.filter(user=request.user)
+    searches = ''
+    if request.method == 'POST':
+        full_term=request.POST['searchTerm']
+        split_text=full_term.split('-')
+        category=split_text[0]
+        term=split_text[1]
+        searches = Search.objects.filter(search_term__iexact=term).filter(
+            search_group=category).exclude(user=request.user.id)
+
+
+    return render(request,'subscriber/search_term_match.html',{'search_terms':search_terms,'searches':searches})
+
+
+
 
 
 

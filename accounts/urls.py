@@ -9,6 +9,7 @@ urlpatterns = [
     path('signup/',views.create_account,name='signup'),
     path('login/',views.process_user_signin,name='signin'),
     path('accounts/',views.loadUserDashBoard,name='dashboard'),
+    path('accounts/view_matches',views.get_matching_users,name='matches'),
     path('logout/',views.logoutView,name='logout'),
     #path('process_subscription/', views.process_subscription, name='process_subscription'),
 

@@ -23,6 +23,7 @@ All the functionalities of the system administrator will take place here.All the
 4.Checking total number of susbscribed users;
 5.Performing refunding of funds to users who want a refund of their fund.
 '''
+@login_required(login_url='system_admin:login')
 def get_total_users(request):
     total_users=User.objects.all().exclude(username=request.user.username)
     return render(request,'accounts/admin/user_details.html',{'total_users'})
@@ -52,7 +53,7 @@ def load_admin_dash(request):
 
 
     return render(request,'sys_admin/dashboard.html',{'total_users':str(total_users),'total_amount':total_amount})
-
+@login_required(login_url='system_admin:login')
 def load_payments_details(request):
     return render(request,'accounts/admin/payment_details.html')
 
@@ -75,6 +76,7 @@ def process_admin_signin(request):
 
 
 #This is the function to manage access codes;
+@login_required(login_url='system_admin:login')
 def manage_codes(request):
     all_codes=AccessCodes.objects.all().order_by('-time_gen')
     active_code=AccessCodes.objects.filter(status=True)
@@ -117,6 +119,7 @@ def delete_access_code(request,code_id):
 ''''
 ****************************USERS MANAGEMENT METHODS*******************
 '''
+@login_required(login_url='system_admin:login')
 def get_all_users(request):
     try:
         users=User.objects.all().exclude(is_superuser=True)
@@ -128,7 +131,7 @@ def get_all_users(request):
 ''''
 ****************************FINANCE MANAGEMENT*******************
 '''
-
+@login_required(login_url='system_admin:login')
 def get_all_transactions(request):
     try:
         all_data=SubscriberDetails.objects.select_related('user').all()
@@ -137,6 +140,7 @@ def get_all_transactions(request):
     return render(request,'sys_admin/manage_finances.html',{'all_data':all_data})
 
 #This is the update on Admin profile
+@login_required(login_url='system_admin:login')
 def update_admin_profile(request):
     if request.method == 'POST':
         try:
@@ -151,6 +155,7 @@ def update_admin_profile(request):
     return  render(request,'sys_admin/update_profile.html')
     
 #Details of the individual users
+@login_required(login_url='system_admin:login')
 def user_detail(request,user_id):
     if request.method == 'POST':
         if request.POST.get("deactivate")== 'deactivate':

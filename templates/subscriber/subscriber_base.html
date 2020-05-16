@@ -62,6 +62,8 @@
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan" href="{% url 'accounts:dashboard' %}" ><i class="material-icons">home</i><span class="menu-title" data-i18n="Dashboard">DashBoard</span></a>
          </li>
+       <li class="active bold"><a class="collapsible-header waves-effect waves-cyan" href="{% url 'accounts:matches' %}" ><i class="material-icons">search</i><span class="menu-title" data-i18n="Dashboard">Search Term Match</span></a>
+         </li>
           <li class="navigation-header"><a class="navigation-header-text">My Friends </a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
           {% if myFriends %}
