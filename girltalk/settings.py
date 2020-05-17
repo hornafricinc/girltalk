@@ -29,9 +29,9 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','9acbad08.ngrok.io']
+ALLOWED_HOSTS = ['www.girltallk.com']
 
 
 # Application definition
@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'girltalk.wsgi.application'
 #PRODUCTION DATABASE CONNECTION
 
 
-''''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -99,12 +99,12 @@ DATABASES = {
 
     }
 }
-'''
 
 
 
 
 
+''''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -115,6 +115,7 @@ DATABASES = {
 
     }
 }
+'''
 
 
 
