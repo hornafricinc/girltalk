@@ -33,14 +33,18 @@ def get_total_users(request):
 def create_account(request):
     if request.method == 'POST':
         form=UserAccountForm(request.POST)
-        if form.is_valid():
-            fs=form.save(commit=False)
-            fs.is_superuser=True
-            fs.save()
-            form=UserAccountForm()
-            messages.success(request,'System Administrator Account Created Successfully.Proceed now to login')
+        admin_count=User.objects.all().count()
+        if admin_count>0:
+            messages.error(request,"You are not allowed to register to this application")
         else:
-            messages.error(request,'Data not entered correctly.Please enter a valid data')
+            if form.is_valid():
+                fs=form.save(commit=False)
+                fs.is_superuser=True
+                fs.save()
+                form=UserAccountForm()
+                messages.success(request,'System Administrator Account Created Successfully.Proceed now to login')
+            else:
+                messages.error(request,'Data not entered correctly.Please enter a valid data')
     else:
         form=UserAccountForm()
     return  render(request,'sys_admin/create_account.html',{'form':form})

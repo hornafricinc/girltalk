@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="289392f9-1ccc-4322-91fa-b2b61597cbcb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/subscriber/search_term_match.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accounts/urls.py" afterPath="$PROJECT_DIR$/accounts/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accounts/models.py" afterPath="$PROJECT_DIR$/accounts/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accounts/views.py" afterPath="$PROJECT_DIR$/accounts/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/girltalk/settings.py" afterPath="$PROJECT_DIR$/girltalk/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/custom/IndexDesign.css" afterPath="$PROJECT_DIR$/static/css/custom/IndexDesign.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/system_admin/views.py" afterPath="$PROJECT_DIR$/system_admin/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/subscriber/matchalgo.html" afterPath="$PROJECT_DIR$/templates/subscriber/matchalgo.html" />
@@ -29,18 +27,54 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/accounts/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="271" column="12" lean-forward="false" selection-start-line="271" selection-start-column="12" selection-end-line="271" selection-end-column="12" />
+            <state relative-caret-position="54">
+              <caret line="109" column="8" lean-forward="true" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
+              <folding>
+                <element signature="e#10969#12802#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/accounts/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="matchalgo.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/subscriber/matchalgo.html">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="142" column="73" lean-forward="false" selection-start-line="142" selection-start-column="73" selection-end-line="142" selection-end-column="73" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/girltalk/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="62" column="29" lean-forward="true" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+              <caret line="33" column="49" lean-forward="false" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+              <folding>
+                <marker date="1589719845591" expanded="true" signature="2511:2750" ph="..." />
+                <marker date="1589719845591" expanded="true" signature="2528:2748" ph="..." />
+                <marker date="1589719845591" expanded="true" signature="2760:2956" ph="'''...'''" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1258">
+              <caret line="74" column="42" lean-forward="false" selection-start-line="74" selection-start-column="42" selection-end-line="74" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -49,48 +83,18 @@
       <file leaf-file-name="subscriber_base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/subscriber/subscriber_base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="850">
+              <caret line="54" column="100" lean-forward="false" selection-start-line="54" selection-start-column="100" selection-end-line="54" selection-end-column="100" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/models.py">
+      <file leaf-file-name="matchalgo.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/subscriber/matchalgo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search_term_match.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/subscriber/search_term_match.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/girltalk/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IndexDesign.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/custom/IndexDesign.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="75" column="17" lean-forward="false" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+            <state relative-caret-position="248">
+              <caret line="125" column="78" lean-forward="false" selection-start-line="125" selection-start-column="78" selection-end-line="125" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -110,8 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bac</find>
-      <find>00A0DE</find>
       <find>inde</find>
       <find>entry</find>
       <find>chat.</find>
@@ -140,6 +142,8 @@
       <find>logout</find>
       <find>soc</find>
       <find>receiver</find>
+      <find>instant</find>
+      <find>getMyFriends</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -178,7 +182,6 @@
         <option value="$PROJECT_DIR$/templates/signup.html" />
         <option value="$PROJECT_DIR$/templates/privacy_policy.html" />
         <option value="$PROJECT_DIR$/templates/termsandconditions.html" />
-        <option value="$PROJECT_DIR$/accounts/models.py" />
         <option value="$PROJECT_DIR$/accounts/signals.py" />
         <option value="$PROJECT_DIR$/accounts/apps.py" />
         <option value="$PROJECT_DIR$/accounts/middleware.py" />
@@ -190,15 +193,16 @@
         <option value="$PROJECT_DIR$/templates/sys_admin/user_detail.html" />
         <option value="$PROJECT_DIR$/templates/sys_admin/sysadmin_base.html" />
         <option value="$PROJECT_DIR$/templates/sys_admin/dashboard.html" />
-        <option value="$PROJECT_DIR$/system_admin/views.py" />
-        <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/static/css/custom/IndexDesign.css" />
-        <option value="$PROJECT_DIR$/templates/subscriber/matchalgo.html" />
         <option value="$PROJECT_DIR$/accounts/urls.py" />
-        <option value="$PROJECT_DIR$/templates/subscriber/subscriber_base.html" />
-        <option value="$PROJECT_DIR$/accounts/views.py" />
         <option value="$PROJECT_DIR$/templates/subscriber/search_term_match.html" />
+        <option value="$PROJECT_DIR$/system_admin/views.py" />
+        <option value="$PROJECT_DIR$/accounts/models.py" />
+        <option value="$PROJECT_DIR$/templates/subscriber/subscriber_base.html" />
+        <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/girltalk/settings.py" />
+        <option value="$PROJECT_DIR$/accounts/views.py" />
+        <option value="$PROJECT_DIR$/templates/subscriber/matchalgo.html" />
       </list>
     </option>
   </component>
@@ -230,8 +234,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -406,6 +408,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -657,7 +661,7 @@
     <frame x="-7" y="30" width="1370" height="745" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30152673" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24503817" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -665,7 +669,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24836601" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33496732" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -690,7 +694,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/accounts/views.py</url>
-          <line>246</line>
+          <line>290</line>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/accounts/views.py</url>
+          <line>120</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="django-line">
           <url>file://$PROJECT_DIR$/templates/sys_admin/manage_codes.html</url>
@@ -703,7 +712,7 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -810,13 +819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="933">
-          <caret line="74" column="42" lean-forward="false" selection-start-line="74" selection-start-column="42" selection-end-line="74" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/gtallk.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -863,13 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="45" column="20" lean-forward="false" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/subscriber/instant_messaging.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="86" lean-forward="false" selection-start-line="38" selection-start-column="86" selection-end-line="38" selection-end-column="86" />
         </state>
       </provider>
     </entry>
@@ -978,27 +973,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system_admin/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="47" lean-forward="false" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2441">
-          <caret line="145" column="34" lean-forward="false" selection-start-line="145" selection-start-column="34" selection-end-line="145" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/custom/IndexDesign.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
+        <state relative-caret-position="1275">
           <caret line="75" column="17" lean-forward="false" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
           <folding />
         </state>
@@ -1016,7 +993,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="12" column="65" lean-forward="true" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1028,50 +1004,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/subscriber/subscriber_base.html">
+    <entry file="file://$PROJECT_DIR$/templates/subscriber/search_term_match.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="629">
+          <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/subscriber/instant_messaging.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="86" lean-forward="false" selection-start-line="38" selection-start-column="86" selection-end-line="38" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="74" column="42" lean-forward="false" selection-start-line="74" selection-start-column="42" selection-end-line="74" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system_admin/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="75" column="69" lean-forward="false" selection-start-line="75" selection-start-column="69" selection-end-line="75" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/accounts/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/subscriber/matchalgo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="62" column="29" lean-forward="true" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="271" column="12" lean-forward="false" selection-start-line="271" selection-start-column="12" selection-end-line="271" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/subscriber/search_term_match.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+        <state relative-caret-position="612">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/girltalk/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+        <state relative-caret-position="17">
+          <caret line="33" column="49" lean-forward="false" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+          <folding>
+            <marker date="1589719845591" expanded="true" signature="2511:2750" ph="..." />
+            <marker date="1589719845591" expanded="true" signature="2528:2748" ph="..." />
+            <marker date="1589719845591" expanded="true" signature="2760:2956" ph="'''...'''" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="142" column="73" lean-forward="false" selection-start-line="142" selection-start-column="73" selection-end-line="142" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/subscriber/subscriber_base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="54" column="100" lean-forward="false" selection-start-line="54" selection-start-column="100" selection-end-line="54" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accounts/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="109" column="8" lean-forward="true" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
+          <folding>
+            <element signature="e#10969#12802#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/subscriber/matchalgo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="125" column="78" lean-forward="false" selection-start-line="125" selection-start-column="78" selection-end-line="125" selection-end-column="78" />
           <folding />
         </state>
       </provider>

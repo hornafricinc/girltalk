@@ -38,10 +38,28 @@
         <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
           <div class="nav-wrapper">
             <ul class="navbar-list right">
+                <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">{{total_alerts }}</small></i></a></li>
               <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">{{ user.get_username }}<span>
                   <img src="{% static 'images/avatar/' %}{{ user.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
               </span><span class="material-icons">keyboard_arrow_down</span> </a></li>
 
+            </ul>
+              <!-- notifications-dropdown-->
+            <ul class="dropdown-content" id="notifications-dropdown">
+              <li>
+                <h6>NOTIFICATIONS<span class="new badge">{{total_alerts }}</span></h6>
+              </li>
+              <li class="divider"></li>
+            {% if  match_alerts  %}
+                 {% for key,value  in match_alerts.items %}
+                               <li><a class="black-text" href="{% url 'accounts:chat' user_id=key %}"><span class="material-icons icon-bg-circle cyan small">notifications_none</span>You got a perfect match with <b>{{ value}}</b> </a>
+
+              </li>
+                    {% endfor %}
+                {% else %}
+                 <li><a class="black-text" href=""><span class="material-icons icon-bg-circle cyan small">notifications_none</span>No Match yet</b> </a>
+              </li>
+            {% endif %}
             </ul>
 
             <ul class="dropdown-content" id="profile-dropdown">

@@ -111,6 +111,9 @@ def  loadUserDashBoard(request):
     My Friends are people who i have ever chatted with.
     '''
     l_user = User.objects.get(username=request.user.username)
+    data=list(Search.objects.values_list('search_term').filter(user=request.user))
+    users_searches=Search.objects.exclude(user=request.user)
+    match_alerts = get_alerts(request)
     myFriends = getMyFriends(request.user.username)
     searchTermObject = Search()
     entered_term = ''
@@ -130,80 +133,122 @@ def  loadUserDashBoard(request):
                 u1 = User.objects.get(username=request.user.username)
                 # Check if user has subscribed
                 subexists = ClientSubscription.objects.filter(user=u1).count()
+                ''''
+                user has subscribed and can search without restriction.
+                '''
                 if subexists > 0:
-                    searchTermObject.search_term = searchTerm
+                    searchTermObject.search_term = searchTerm.lower()
                     searchTermObject.search_group = category
                     user = User.objects.get(pk=request.user.id)
                     searchTermObject.user_id = user.pk
+                    if category == 'facebook':
+                        if validate_facebook_search(searchTerm):
+                            # check if the term is already in the database.
+                            exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
+                                search_term__iexact=searchTerm).count()
+                            if exists > 0:
+                                ''''
+                                Since it exists We have now to query the database for records that 
+                                do not include my keyword.
+                                '''
+                                searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                    search_group=category).exclude(user=request.user.id)
 
-                    # check if the term is already in the database.
-                    exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
-                        search_term__iexact=searchTerm).count()
-                    if exists > 0:
-                        ''''
-                        Since it exists We have now to query the database for records that 
-                        do not include my keyword.
-                        '''
-                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
-                            search_group=category).exclude(user=request.user.id)
+                            else:
+                                # Fetch results from database.
+                                searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                    search_group=category).exclude(user=request.user.id)
+                                if len(searchResults) == 1:
+                                    singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                        search_group=category).exclude(user=request.user.id).first()
+                                    subject = "We Found a Match at Girl Tallk"
+                                    receiver = singleResults.user.email
+                                    user = User.objects.get(email=receiver)
+                                    message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
+
+                                    send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver],
+                                              fail_silently=False)
+                                    searchTermObject.save()
+                                else:
+                                    searchTermObject.save()
+
+                        else:
+                            messages.error(request,"You have entered an invalid facebook unique profile ID.Please click view instructions below for instructions to get unique user profile ID")
+
 
                     else:
-                        # Fetch results from database.
-                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
-                            search_group=category).exclude(user=request.user.id)
-                        if len(searchResults) == 1:
-                            singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
-                                search_group=category).exclude(user=request.user.id).first()
-                            subject = "We Found a Match at Girl Tallk"
-                            receiver = singleResults.user.email
-                            user = User.objects.get(email=receiver)
-                            message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
+                        # check if the term is already in the database.
+                        exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
+                            search_term__iexact=searchTerm).count()
+                        if exists > 0:
+                            ''''
+                            Since it exists We have now to query the database for records that 
+                            do not include my keyword.
+                            '''
+                            searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                search_group=category).exclude(user=request.user.id)
 
-                            send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
-                            searchTermObject.save()
                         else:
-                            searchTermObject.save()
+                            # Fetch results from database.
+                            searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                search_group=category).exclude(user=request.user.id)
+                            if len(searchResults) == 1:
+                                singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                    search_group=category).exclude(user=request.user.id).first()
+                                subject = "We Found a Match at Girl Tallk"
+                                receiver = singleResults.user.email
+                                user = User.objects.get(email=receiver)
+                                message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
 
+                                send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
+                                searchTermObject.save()
+                            else:
+                                searchTermObject.save()
+               #user not subsribed and trying not to use facebook.
                 elif category != 'facebook' and subexists ==0:
                     message=format_html('OOPS! Kindly subscribe to enjoy our full search capability.In this free mode you are only allowed to search with facebook.Please click <a href="{}">Here</a> to subscribe',reverse('subscription:subscriptionplans'))
                     messages.error(request,message)
+                #user not subsribed and using facebook.
                 else:
-                    searchTermObject.search_term = searchTerm
+                    searchTermObject.search_term = searchTerm.lower()
                     searchTermObject.search_group = category
                     user = User.objects.get(pk=request.user.id)
                     searchTermObject.user_id = user.pk
+                    #Before we query let us now check preparation.
+                    status=validate_facebook_search(searchTerm)
+                    if status == True:
+                        # check if the term is already in the database.
+                        exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
+                            search_term__iexact=searchTerm).count()
+                        if exists > 0:
+                            ''''
+                            Since it exists We have now to query the database for records that 
+                            do not include my keyword.
+                            '''
+                            searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                search_group=category).exclude(user=request.user.id)
 
-                    # check if the term is already in the database.
-                    exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
-                        search_term__iexact=searchTerm).count()
-                    if exists > 0:
-                        ''''
-                        Since it exists We have now to query the database for records that 
-                        do not include my keyword.
-                        '''
-                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
-                            search_group=category).exclude(user=request.user.id)
-
-                    else:
-                        # Fetch results from database.
-                        searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
-                            search_group=category).exclude(user=request.user.id)
-                        if len(searchResults) == 1:
-                            singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
-                                search_group=category).exclude(user=request.user.id).first()
-                            subject = "WE FOUND A MATCH FOR SEARCH TERM"
-                            receiver = singleResults.user.email
-                            user=User.objects.get(email=receiver)
-
-                            message = user.username + ",  we found a match for Search Term.Please visit us and start chatting"
-
-                            send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
-                            searchTermObject.save()
                         else:
-                            searchTermObject.save()
+                            # Fetch results from database.
+                            searchResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                search_group=category).exclude(user=request.user.id)
+                            if len(searchResults) == 1:
+                                singleResults = Search.objects.filter(search_term__iexact=searchTerm).filter(
+                                    search_group=category).exclude(user=request.user.id).first()
+                                subject = "WE FOUND A MATCH FOR SEARCH TERM"
+                                receiver = singleResults.user.email
+                                user=User.objects.get(email=receiver)
 
-    return  render(request,'subscriber/matchalgo.html',{'searchResults':searchResults,'total':len(searchResults),'myFriends':myFriends})
+                                message = user.username + ",  we found a match for Search Term.Please visit us and start chatting"
 
+                                send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
+                                searchTermObject.save()
+                            else:
+                                searchTermObject.save()
+                    else:
+                        messages.error(request,"You have entered an invalid facebook unique profile ID.Please click view instructions below for instructions to get unique user profile ID")
+
+    return  render(request,'subscriber/matchalgo.html',{'searchResults':searchResults,'total':len(searchResults),'myFriends':myFriends,'match_alerts':match_alerts,'total_alerts':len(match_alerts)})
 #Logout
 def logoutView(request):
     logout(request)
@@ -216,7 +261,6 @@ This is where we process the chat system.
 def processChat(request,receiver_id):
     messageO=Messages()
     if request.method == 'POST':
-        senderinstance= User.objects.get(pk=request.user.id)
         messageO.sender=request.user
         receiverinstance = User.objects.get(pk=receiver_id)
         messageO.receiver=receiverinstance
@@ -279,11 +323,39 @@ def get_matching_users(request):
             search_group=category).exclude(user=request.user.id)
 
 
-    return render(request,'subscriber/search_term_match.html',{'search_terms':search_terms,'searches':searches})
+    return render(request,'subscriber/search_term_match.html',{'search_terms':search_terms,'searches':searches,})
 
 
 
+def get_alerts(request):
+    active_user_searches=Search.objects.filter(user=request.user)
+    my_search=[]
+    for term in active_user_searches:
+        my_search.append(term.search_term)
+    other_users=Search.objects.exclude(user=request.user)
+    alerts={}
+    for single_user_instance in other_users:
+        if single_user_instance.search_term in my_search:
+            alerts[single_user_instance.user.id]=single_user_instance.user.username
+        else:
+            pass
+    return alerts
 
+
+
+#This is a function to prepare a facebook search which is not unique.
+def validate_facebook_search(entered_value):
+    correct=False
+    #Screen not a single word
+    if len(entered_value.split())>1:
+        #Check if dot exists since it seperates user profile
+        if "." in entered_value:
+            correct=True
+        else:
+           correct=False
+    else:
+        correct=True
+    return  correct
 
 
 
