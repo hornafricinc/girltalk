@@ -2,19 +2,20 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView
 from paypal.standard.forms import PayPalPaymentsForm
 from paypal.standard.ipn.signals import valid_ipn_received
 
 from accounts.views import logoutView
 from girltalk import settings
 from subscription.models import ClientSubscription, SubscriberDetails
+import stripe
+
+stripe.api_key='sk_test_51GtXvhKESTLwC7TomUeLZ6IlBpWhgNT8YOU1ui93ut5jA55NGNuQ9gDYDd4A55dydACm0Xti541hF55hx4LmU0Mf00uvuzTg8l'
 
 
 @csrf_exempt
@@ -33,10 +34,42 @@ def payment_canceled(request):
 
 @login_required(login_url='accounts:signin')
 def subscribe(request):
-    if request.method == 'POST':
-        request.session['subscription_plan']=request.POST.get('frequency')
-        return redirect('subscription:process_subscription')
+   # if request.method == 'POST':
+        #request.session['subscription_plan']=request.POST.get('frequency')
+       # return redirect('subscription:process_subscription')
     return render(request,'subscriber/subscription_plans.html')
+
+#This is the view to pprocess customer subscription.
+@login_required(login_url='accounts:signin')
+def process_subscription(request):
+    usermail=request.user.email
+    if request.method == 'POST':
+        print('Data:', request.POST)
+        customer = stripe.Customer.create(
+            email=request.user.email,
+            name=request.user.first_name+' '+request.user.last_name,
+            source=request.POST['stripeToken'],
+        )
+        subscription = stripe.Subscription.create(
+            customer=customer,
+            items=[
+                {'plan': 'price_1H1kQiKESTLwC7ToVtofUuGA'}
+            ],
+            collection_method='charge_automatically',
+            trial_end=1594620148
+        )
+        customer_subscription=stripe.Subscription.retrieve(subscription.id)
+        status=customer_subscription.status
+
+
+
+    return redirect(reverse('subscription:success', args=[usermail]))
+
+
+def successMsg(request, args):
+    usermail = args
+    return render(request, 'subscriber/success.html', {'username': usermail})
+
 
 
 def process_payment(request):

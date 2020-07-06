@@ -1,13 +1,92 @@
 {% extends 'subscriber/subscriber_base.html' %}
 {% load static %}
+  <style>
+     .MyCardElement {
+  height: 40px;
+  padding: 10px 12px;
+  width: 100%;
+  color: #32325d;
+  background-color: white;
+  border: 2px solid purple;
+  border-radius: 12px;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.MyCardElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.MyCardElement--invalid {
+  border-color: #fa755a;
+}
+
+.MyCardElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+
+    </style>
 {% block content %}
 <div id="main">
 <div class="row">
     <div class="col s12 m12 l12">
-        <h4 class="center-align"><u>GIRL TALLK SUBSCRIPTION PLANS</u></h4>
+        <h4 class="center-align"><u>GIRL TALLK SUBSCRIPTION PLAN</u></h4>
     </div>
 </div>
-       <div class="row">
+    <div class="row">
+        <div class="col s12 m12 l12">
+             <div class="col s12 m6 offset-m3">
+                      <div class="card">
+                        <div class="card-content black-text">
+                            <div class="gtallk-card-header">
+                                 <h1 class="card-title center-align">MONTHLY PLAN</h1>
+                                <div class="divider"></div>
+                            </div>
+                            <h4 class="center-align">7 DAY FREE TRIAL</h4>
+                              <p class="center-align">Try Girl Tallk Free for 7 days</p>
+                            <p style="color: red">After the 7 day trial your card will be billed <b>$7</b> every month.</p>
+                        </div>
+                        <div class="card-action">
+                            <form action="{% url 'subscription:process_subscription' %}" method="post" id="payment-form">
+             {% csrf_token %}
+              <div class="form-row">
+                  <h5 class="center-align">Fill out your card details below</h5>
+                  <div class="divider"></div>
+                  <div class="row">
+                      <div class="input-field col s12">
+                          <div id="card-element" class="MyCardElement" style="border-radius: 25px;">
+                              <!-- A Stripe Element will be inserted here. -->
+                           </div>
+                      </div>
+                  </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+              </div>
+
+
+
+
+
+                                <div class="row">
+        <div class="input-field col s12">
+              <button class="btn gtallk-btn btn-block">Subscribe</button>
+            </div>
+      </div>
+         </form>
+
+                        </div>
+                      </div>
+                    </div>
+        </div>
+
+    </div>
+
+
+       <!--<div class="row">
         <div class="col s12 m12 l12">
             <div class="container">
               <div class="row">
@@ -18,13 +97,12 @@
                                  <h1 class="card-title center-align">MONTHLY PLAN</h1>
                                 <div class="divider"></div>
                             </div>
-                            <h3 class="center-align">$7/YEAR</h3>
+                            <h3 class="center-align">$7/MONTH</h3>
                               <p>This package will enable you use
                           our service after paying a subscription fee of $7 billed every month.</p>
                         </div>
                         <div class="card-action">
                             <form method="post" action="">
-                               {% csrf_token %}
                                <input type="hidden" name="frequency" value="1">
                             <button class="btn gtallk-btn btn-block" type="submit">Select</button>
                            </form>
@@ -46,7 +124,6 @@
                         </div>
                         <div class="card-action">
                             <form method="post" action="">
-                               {% csrf_token %}
                                <input type="hidden" name="frequency" value="12">
                             <button class="btn gtallk-btn btn-block" type="submit">Select</button>
                            </form>
@@ -56,6 +133,78 @@
            </div>
            </div>
     </div>
-    </div>
+    </div>-->
 </div>
+     <script type="text/javascript">
+            // Create a Stripe client.
+        var stripe = Stripe('pk_test_51GtXvhKESTLwC7TokkiPj5vGujt1Yy3up82Ws4EOpvMdgHTUS2VNJM9ti9ZwmaiQlgVAeo6VitMMPE8na6rbvK3I000rePY1Fg');
+
+        // Create an instance of Elements.
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+        var style = {
+          base: {
+            color: '#32325d',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+              color: '#800080'
+            }
+          },
+          invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+          }
+        };
+
+        // Create an instance of the card Element.
+        var card = elements.create('card', {style: style});
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.on('change', function(event) {
+          var displayError = document.getElementById('card-errors');
+          if (event.error) {
+            displayError.textContent = event.error.message;
+          } else {
+            displayError.textContent = '';
+          }
+        });
+
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          stripe.createToken(card).then(function(result) {
+            if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors');
+              errorElement.textContent = result.error.message;
+            } else {
+              // Send the token to your server.
+              stripeTokenHandler(result.token);
+            }
+          });
+        });
+
+        // Submit the form with the token ID.
+        function stripeTokenHandler(token) {
+          // Insert the token ID into the form so it gets submitted to the server
+          var form = document.getElementById('payment-form');
+          var hiddenInput = document.createElement('input');
+          hiddenInput.setAttribute('type', 'hidden');
+          hiddenInput.setAttribute('name', 'stripeToken');
+          hiddenInput.setAttribute('value', token.id);
+          form.appendChild(hiddenInput);
+
+          // Submit the form
+          form.submit();
+        }
+    </script>
 {% endblock %}

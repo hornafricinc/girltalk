@@ -1,0 +1,7 @@
+price_id='price_1H1jxHKESTLwC7TopkQJL27q'
+Test Keys:
+stripe.api_key='sk_test_51GtXvhKESTLwC7TomUeLZ6IlBpWhgNT8YOU1ui93ut5jA55NGNuQ9gDYDd4A55dydACm0Xti541hF55hx4LmU0Mf00uvuzTg8l',
+stripe.oublishable_key='pk_test_51GtXvhKESTLwC7TokkiPj5vGujt1Yy3up82Ws4EOpvMdgHTUS2VNJM9ti9ZwmaiQlgVAeo6VitMMPE8na6rbvK3I000rePY1Fg'
+Live Keys:
+stripe.api_key='sk_live_8dJumYY5pFQAme79tNfmnXN200Kyk4nb3x',
+stripe.oublishable_key='pk_live_Dt5sBFIYrmxxu9wUuy6LlPPq005LUBBnte'

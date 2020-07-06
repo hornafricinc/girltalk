@@ -357,6 +357,13 @@ def validate_facebook_search(entered_value):
         correct=True
     return  correct
 
+#Load the Affiliate Link
+def load_affiliate(request):
+    return render(request,'affiliate_description.html')
+#Logged in user;
+@login_required(login_url='accounts:signin')
+def user_affiliate_management(request):
+    return render(request,'subscriber/user_affiliate.html')
 
 
 

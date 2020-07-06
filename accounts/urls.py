@@ -18,6 +18,10 @@ urlpatterns = [
     path('user_profile/',views.update_profile,name='profile'),
     path('terms-and-conditions/',views.TermsAndConditions.as_view(),name='terms-and-conditions'),
     path('privacy-policy/',views.PrivacyPolicy.as_view(),name='privacy-policy'),
+path('affiliate/',views.load_affiliate,name='affiliate_description'),
+path('accounts/affiliate',views.user_affiliate_management,name='user_affiliate'),
+
+
 
 
 ]

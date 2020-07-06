@@ -29,9 +29,9 @@ SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['www.girltallk.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -87,35 +87,36 @@ WSGI_APPLICATION = 'girltalk.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 #PRODUCTION DATABASE CONNECTION
 
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'db_girltallk',
+            'USER': 'root',
+            'PASSWORD': 'Korir9993',
+            'HOST': '',
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Elcapo7$db_girltallk',
-        'USER': 'Elcapo7',
-        'PASSWORD': '*&girltallk_db#@',
-        'HOST': 'Elcapo7.mysql.pythonanywhere-services.com',
-
+        }
     }
-}
 
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Elcapo7$db_girltallk',
+            'USER': 'Elcapo7',
+            'PASSWORD': '*&girltallk_db#@',
+            'HOST': 'Elcapo7.mysql.pythonanywhere-services.com',
 
-
-
-
-''''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_girltallk',
-        'USER': 'root',
-        'PASSWORD': 'Korir9993',
-        'HOST': '',
-
+        }
     }
-}
-'''
+
+
+
+
+
+
+
 
 
 
