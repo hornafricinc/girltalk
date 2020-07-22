@@ -15,10 +15,13 @@
                                    <form method="post" action="">
                               {% csrf_token %}
                                         {% if messages %}
-                    {% for message in messages %}
-                          <p class="center-align gtallk-error"><span class="material-icons">error</span> {{ message }}</p>
-                    {% endfor %}
-                {% endif %}
+                                            {% for message in messages %}
+                                                  <p class="center-align gtallk-error"><span class="material-icons">error</span> {{ message }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                   {% if s_status == '' %}
+                                       <a href="{% url 'subscription:subscriptionplans' %}" class="btn btn-block">Subscribe</a>
+                                   {% endif %}
                               <div class="row">
                               <div class="input-field col s12 m4 l3">
                                   <select name="cat">

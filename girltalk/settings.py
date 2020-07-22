@@ -128,7 +128,8 @@ else:
 
 
 
-
+#STRIPE DETAILS
+STRIPE_SECRET_KEY='sk_test_51H7QP1FuwTkoJXtMoooblIPCgYRtYPfVj4IWf5kJbngO1fA9knEmUsojzxZZPnYE5GvucJbC5uGg4qqTNjJBCg9000CEcFdmL5'
 
 
 PAYPAL_RECEIVER_EMAIL = 'knovitecards@gmail.com'

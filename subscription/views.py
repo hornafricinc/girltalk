@@ -12,10 +12,10 @@ from paypal.standard.ipn.signals import valid_ipn_received
 
 from accounts.views import logoutView
 from girltalk import settings
-from subscription.models import ClientSubscription, SubscriberDetails
+from subscription.models import ClientSubscription, SubscriberDetails, SubscriberSubscriptionDetails
 import stripe
 
-stripe.api_key='sk_test_51GtXvhKESTLwC7TomUeLZ6IlBpWhgNT8YOU1ui93ut5jA55NGNuQ9gDYDd4A55dydACm0Xti541hF55hx4LmU0Mf00uvuzTg8l'
+stripe.api_key=settings.STRIPE_SECRET_KEY
 
 
 @csrf_exempt
@@ -44,7 +44,6 @@ def subscribe(request):
 def process_subscription(request):
     usermail=request.user.email
     if request.method == 'POST':
-        print('Data:', request.POST)
         customer = stripe.Customer.create(
             email=request.user.email,
             name=request.user.first_name+' '+request.user.last_name,
@@ -53,13 +52,21 @@ def process_subscription(request):
         subscription = stripe.Subscription.create(
             customer=customer,
             items=[
-                {'plan': 'price_1H1kQiKESTLwC7ToVtofUuGA'}
+                {'plan': 'price_1H7QitFuwTkoJXtMe5otaHpo'}
             ],
             collection_method='charge_automatically',
-            trial_end=1594620148
+            trial_period_days=7,
         )
-        customer_subscription=stripe.Subscription.retrieve(subscription.id)
-        status=customer_subscription.status
+
+
+        #Here we save the customer id and subscription id in our database.
+        stripesubscriptionsdetails=SubscriberSubscriptionDetails()
+        user=User.objects.get(email=request.user.email)
+        stripesubscriptionsdetails.user=user
+        stripesubscriptionsdetails.customer_id=customer.id
+        stripesubscriptionsdetails.subscription_id=subscription.id
+        stripesubscriptionsdetails.save()
+
 
 
 

@@ -15,6 +15,13 @@ class SubscriberDetails(models.Model):
 
     class Meta:
         db_table='subscriptions'
+class SubscriberSubscriptionDetails(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    customer_id=models.CharField(max_length=250,blank=False,unique=True)
+    subscription_id=models.CharField(max_length=100,blank=False,unique=True)
+
+    class Meta:
+        db_table='stripe_subscriptions'
 
 
 

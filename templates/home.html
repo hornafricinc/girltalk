@@ -24,7 +24,7 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
       <a class="nav-item nav-link active" href="{% url 'accounts:index' %}"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link active" href="{% url 'accounts:affiliate_description' %}"><i class="fa fa-usd"></i>  Affiliates <span class="sr-only">(current)</span></a>
+
       <a class="nav-item nav-link" href="{% url 'accounts:signup' %}"><i class="fa fa-user-circle-o"></i> Create Account</a>
       <a class="nav-item nav-link" href="{% url 'accounts:signin' %}"><i class="fa fa-lock"></i> Log In</a>
     </div>
@@ -64,58 +64,31 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="container" id="g-container">
+                <div class="container" id="g-container" >
                      <div class="container" id="custom-container">
                     <div class="row" id="customRow">
                         <div class="col-sm-12">
-                            <h2 class="text-center">OUR SUBSCRIPTION PLANS</h2>
+                            <h2 class="text-center">Join Now</h2>
                         </div>
                     </div>
                         <div class="row">
-                                     <div class="col-sm-12 col-md-4">
-                                  <div class="card " style="border-radius: 25px ;border: 2px solid 	#800080">
-               <div class="card-header text-center" style="border: none;background: transparent">
-                  <h2>FREE PLAN</h2>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title text-center">FREE</h3>
-                  <div class="card-body text-center">
-                      <p>Access to one search functionality for free.</p>
-                       <a href="{% url 'accounts:signup' %}" class="banner_btn btn-white" style="margin-bottom: 20px">Join Girl Tallk Now</a>
-                  </div>
-              </div>
-            </div></div>
-                            <div class="col-sm-12 col-md-4">
-                                  <div class="card" style="border-radius: 25px ;border: 2px solid 	#800080">
+
+                            <div class="col-sm-12 col-md-4 offset-md-4">
+                                  <div class="card card-transparent">
                <div class="card-header text-center" style="border: none;background: transparent">
                   <h2>MONTHLY PLAN</h2>
+                   <hr/>
               </div>
               <div class="card-body">
                 <h3 class="card-title text-center">$7/MONTH</h3>
                   <div class="card-body">
-                      <p>Full access to all of our search functionalities for just $7 per month. (Unlimited searches)</p>
+                      <p>With only <b>$7</b> a month with a 7 day trial period ,you will have unlimited searches.</p>
                        <a href="{% url 'accounts:signup' %}" class="banner_btn btn-white" style="margin-bottom: 20px">Join Girl Tallk Now</a>
 
                   </div>
               </div>
             </div></div>
-                            <div class="col-sm-12 col-md-4">
-                                <div class="card" style="border-radius: 25px ;border: 2px solid 	#800080">
-              <div class="card-header text-center" style="border: none;background: transparent">
-                  <h2>YEARLY PLAN</h2>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title text-center">$59/YEAR</h3>
-                   <div class="card-body">
-                       <p>Full access to all our search functionalities. Pay annually and use Girltallk for only $59 per year.
-(unlimited searches) Huge savings.
-                      </p>
-                        <a href="{% url 'accounts:signup' %}" class="banner_btn btn-white" style="margin-bottom: 20px">Join Girl Tallk Now</a>
 
-                   </div>
-              </div>
-            </div>
-                            </div>
 
                         </div>
 
