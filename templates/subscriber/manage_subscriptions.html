@@ -1,0 +1,75 @@
+{% extends 'subscriber/subscriber_base.html' %}
+{% load static %}
+{% block content %}
+<div id="main">
+<div class="row">
+    <div class="col s12 m12 l12">
+        <h5 class="center-align"><u>Girl Tallk Subscription Management</u></h5>
+    </div>
+</div>
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card">
+    <div class="card-content">
+      <p>Dear GirlTallk User.This is where you manage your subscriptions.</p>
+        <p class="center-align">Subscription Status:
+            {% if s_status == 'canceled' %}
+                <b class="red-text">{{ s_status }}</b>
+                {% elif s_status == 'trialing' %}
+                 <b class="orange-text">{{ s_status }}</b>
+                {% elif s_status == 'active' %}
+                 <b class="green-text">{{ s_status }}</b>
+                {% else %}
+                 <b class="red-text">{{ s_status }}</b>
+            {% endif %}
+            </p>
+    {% if messages  %}
+        {% for message in messages %}
+            <p class="center-align green-text">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    </div>
+             {% if s_status == 'trialing' or s_status == 'active' %}
+                    <div class="card-tabs">
+                      <ul class="tabs tabs-fixed-width">
+                        <li class="tab"><a class="active red-text" href="#test5">Cancel Subscription</a></li>
+
+                      </ul>
+                    </div>
+                    <div class="card-content grey lighten-4">
+                      <div id="test5">
+                          <form method="post" action="">
+                              {% csrf_token %}
+                              <p>Kindly give us a reason why you would like to subscribe that will make us improve on our services.Leave the feedback by filling the form below.</p>
+
+                              <div class="row">
+                                 <div class="input-field col s12">
+                                     <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                     <label for="textarea1">Reason(Optional)</label>
+                                 </div>
+                             </div>
+                              <div class="row">
+                                 <div class="input-field col s12 m6 offset-m3">
+                                     <button type="submit" class="btn btn-block">Cancel Subscription</button>
+                                 </div>
+                             </div>
+                          </form>
+                      </div>
+
+                    </div>
+                 {% else %}
+                 <p class="center-align">Your subscription is <b class="red-text"> {{ s_status }}</b>. Please <a href="{% url 'subscription:subscriptionplans' %}">create</a>  a new subscription</p>
+                 <a href="{% url 'subscription:subscriptionplans' %}" class="btn btn-block">Create a New Subscription</a>
+            {% endif %}
+  </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

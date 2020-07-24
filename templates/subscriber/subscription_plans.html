@@ -54,6 +54,12 @@
              {% csrf_token %}
               <div class="form-row">
                   <h5 class="center-align">Fill out your card details below</h5>
+                             {% if messages %}
+                                {% for message in messages %}
+                                    <p class="center-align red-text">{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+
                   <div class="divider"></div>
                   <div class="row">
                       <div class="input-field col s12">

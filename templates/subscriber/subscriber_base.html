@@ -40,7 +40,7 @@
           <div class="nav-wrapper">
             <ul class="navbar-list right">
                 <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">{{total_alerts }}</small></i></a></li>
-              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">{{ user.get_username }}<span>
+                <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">{{ user.get_username }}<span>
                   <img src="{% static 'images/avatar/' %}{{ user.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
               </span><span class="material-icons">keyboard_arrow_down</span> </a></li>
 
@@ -65,6 +65,8 @@
 
             <ul class="dropdown-content" id="profile-dropdown">
                 <li><a class="grey-text text-darken-1" href="{% url 'accounts:profile' %}"><i class="material-icons">person_outline</i> Profile</a></li>
+                <li class="divider"></li>
+                 <li><a class="grey-text text-darken-1" href="{% url 'subscription:manage_subscriptions' %}"><i class="material-icons">person_outline</i>Subscriptions</a></li>
                 <li class="divider"></li>
                 <li><a class="grey-text text-darken-1" href="{% url 'accounts:logout' %}"><i class="material-icons">keyboard_tab</i> Logout</a></li>
             </ul>
@@ -94,10 +96,7 @@
               {% else %}
                <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">person_outline</i><span class="menu-title" data-i18n="User Profile">No Friends</span></a></li>
           {% endif %}
-       <li class="navigation-header"><a class="navigation-header-text">Others</a><i class="navigation-header-icon material-icons">more_horiz</i>
-        </li>
-       <li class="bold"><a class="waves-effect waves-cyan " href="{% url 'accounts:user_affiliate' %}"><i class="material-icons">attach_money</i><span class="menu-title" data-i18n="User Profile">Girl Tallk Affiliate</span></a>
-                </li>
+
 
       </ul>
       <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
@@ -187,6 +186,8 @@
         },5000)
 
     });
+
+
 
     </script>
 

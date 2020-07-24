@@ -1,5 +1,7 @@
 import datetime
 
+from djstripe.models import Subscription,Customer
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -15,7 +17,7 @@ from girltalk import settings
 from subscription.models import ClientSubscription, SubscriberDetails, SubscriberSubscriptionDetails
 import stripe
 
-stripe.api_key=settings.STRIPE_SECRET_KEY
+stripe.api_key=settings.STRIPE_TEST_SECRET_KEY
 
 
 @csrf_exempt
@@ -39,38 +41,57 @@ def subscribe(request):
        # return redirect('subscription:process_subscription')
     return render(request,'subscriber/subscription_plans.html')
 
+
+#Create Subscription Function
+def create_cust_subscription(request):
+    customer = stripe.Customer.create(
+        email=request.user.email,
+        name=request.user.first_name + ' ' + request.user.last_name,
+        source=request.POST['stripeToken'],
+    )
+    djstripe_customer = Customer.sync_from_stripe_data(customer)
+    subscription = stripe.Subscription.create(
+        customer=customer,
+        items=[
+            {'plan': 'price_1H7QitFuwTkoJXtMe5otaHpo'}
+        ],
+        collection_method='charge_automatically',
+        trial_period_days=7,
+    )
+    djstripe_subscription = Subscription.sync_from_stripe_data(subscription)
+    # Here we save the customer id and subscription id in our database.
+    stripesubscriptionsdetails = SubscriberSubscriptionDetails()
+    user = User.objects.get(email=request.user.email)
+    stripesubscriptionsdetails.user = user
+    stripesubscriptionsdetails.customer = djstripe_customer
+    stripesubscriptionsdetails.subscription = djstripe_subscription
+    stripesubscriptionsdetails.save()
+
 #This is the view to pprocess customer subscription.
 @login_required(login_url='accounts:signin')
 def process_subscription(request):
     usermail=request.user.email
     if request.method == 'POST':
-        customer = stripe.Customer.create(
-            email=request.user.email,
-            name=request.user.first_name+' '+request.user.last_name,
-            source=request.POST['stripeToken'],
-        )
-        subscription = stripe.Subscription.create(
-            customer=customer,
-            items=[
-                {'plan': 'price_1H7QitFuwTkoJXtMe5otaHpo'}
-            ],
-            collection_method='charge_automatically',
-            trial_period_days=7,
-        )
+        #Check if the user has already subscribed.
+        user = User.objects.get(email=request.user.email)
+        try:
+            subscriber_details=SubscriberSubscriptionDetails.objects.filter(user=user).latest('date_subscribed')
+            s_status = Subscription.objects.get(pk=subscriber_details.subscription_id)
+        except SubscriberSubscriptionDetails.DoesNotExist:
+            subscriber_details=None
 
+        #Check if the user does not exist or not
+        if subscriber_details is None:
+            create_cust_subscription(request)
+            return redirect(reverse('subscription:success', args=[usermail]))
+        elif s_status.status != 'trialing' and s_status.status != 'active':
+            create_cust_subscription(request)
+            return redirect(reverse('subscription:success', args=[usermail]))
+        else:
+            messages.error(request, 'You are already subscribed to the service')
+            #return redirect('subscription:process_subscription')
+    return render(request,'subscriber/subscription_plans.html')
 
-        #Here we save the customer id and subscription id in our database.
-        stripesubscriptionsdetails=SubscriberSubscriptionDetails()
-        user=User.objects.get(email=request.user.email)
-        stripesubscriptionsdetails.user=user
-        stripesubscriptionsdetails.customer_id=customer.id
-        stripesubscriptionsdetails.subscription_id=subscription.id
-        stripesubscriptionsdetails.save()
-
-
-
-
-    return redirect(reverse('subscription:success', args=[usermail]))
 
 
 def successMsg(request, args):
@@ -138,6 +159,40 @@ def payment_received(sender, **kwargs):
 
 
 valid_ipn_received.connect(payment_received)
+
+
+
+
+#This is a function to Cancel Subscription
+def manage_subscription(request):
+    #First get user specific subscription;
+    ''''
+    user=User.objects.get(username=request.user.username)
+    subscription = SubscriberSubscriptionDetails.objects.get(user=user)
+    djstripes=djstripe.models.Subscription.objects.get(pk=subscription.subscription_id)
+
+    cancel_my_subscription=stripe.Subscription.delete(djstripes.id)
+    djstripe.models.Subscription.sync_from_stripe_data(cancel_my_subscription)
+    messages.success(request,'Your subscription has been cancelled successfully')
+    '''
+    user = User.objects.get(username=request.user.username)
+    status='not subscribed'
+    try:
+        subscription = SubscriberSubscriptionDetails.objects.filter(user=user).latest('date_subscribed')
+        djstripes = Subscription.objects.get(pk=subscription.subscription_id)
+        status=djstripes.status
+    except SubscriberSubscriptionDetails.DoesNotExist:
+        subscription=None
+    if request.method == 'POST':
+        cancel_my_subscription = stripe.Subscription.delete(djstripes.id)
+        Subscription.sync_from_stripe_data(cancel_my_subscription)
+        messages.success(request, 'Your subscription has been cancelled successfully')
+
+
+
+
+    return render(request,'subscriber/manage_subscriptions.html',{'s_status':status})
+
 
 
 

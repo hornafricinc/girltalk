@@ -33,7 +33,7 @@ def get_total_users(request):
 def create_account(request):
     if request.method == 'POST':
         form=UserAccountForm(request.POST)
-        admin_count=User.objects.all().count()
+        admin_count=User.objects.filter(is_superuser=True).count()
         if admin_count>0:
             messages.error(request,"You are not allowed to register to this application")
         else:

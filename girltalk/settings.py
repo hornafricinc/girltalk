@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.core.mail.backends.smtp import EmailBackend
 
@@ -19,13 +19,15 @@ from django.core.mail.backends.smtp import EmailBackend
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env=environ.Env()
+environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#s3z)*$55wj$=$b***f=bjd9143pl&83ka!^nk$1so7zjg9qnb'
+SECRET_KEY = env('APP_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -48,6 +50,8 @@ INSTALLED_APPS = [
     'subscription.apps.SubscriptionConfig',
     'system_admin.apps.SystemAdminConfig',
     'paypal.standard.ipn',
+    'djstripe',
+
 ]
 
 MIDDLEWARE = [
@@ -91,10 +95,10 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'db_girltallk',
-            'USER': 'root',
-            'PASSWORD': 'Korir9993',
-            'HOST': '',
+            'NAME': env('DATABASE_NAME_LOCAL'),
+            'USER': env('DATABASE_USER_LOCAL'),
+            'PASSWORD': env('DATABASE_PASSWORD_LOCAL'),
+            'HOST': env('DATABASE_HOST_LOCAL'),
 
         }
     }
@@ -103,10 +107,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Elcapo7$db_girltallk',
-            'USER': 'Elcapo7',
-            'PASSWORD': '*&girltallk_db#@',
-            'HOST': 'Elcapo7.mysql.pythonanywhere-services.com',
+            'NAME': env('DATABASE_NAME_PRODUCTION'),
+            'USER': env('DATABASE_USER_PRODUCTION'),
+            'PASSWORD': env('DATABASE_PASSWORD_PRODUCTION'),
+            'HOST': env('DATABASE_HOST_PRODUCTION'),
 
         }
     }
@@ -129,9 +133,12 @@ else:
 
 
 #STRIPE DETAILS
-STRIPE_SECRET_KEY='sk_test_51H7QP1FuwTkoJXtMoooblIPCgYRtYPfVj4IWf5kJbngO1fA9knEmUsojzxZZPnYE5GvucJbC5uGg4qqTNjJBCg9000CEcFdmL5'
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_TEST_SECRET_KEY  =env('STRIPE_TEST_SECRET_KEY')
+STRIPE_LIVE_MODE = False
+DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"  # We don't use this, but it must be set
 
-
+#PayPal Details
 PAYPAL_RECEIVER_EMAIL = 'knovitecards@gmail.com'
 PAYPAL_TEST = False
 
