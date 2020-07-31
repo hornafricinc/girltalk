@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/',views.process_user_signin,name='signin'),
     path('accounts/',views.prepareuserdashboard,name='dashboard'),
     path('accounts/view_matches',views.get_matching_users,name='matches'),
+    path('accounts/facebook_instructions/',views.get_facebook_instructions,name='facebook-instructions'),
     path('logout/',views.logoutView,name='logout'),
     #path('process_subscription/', views.process_subscription, name='process_subscription'),
 

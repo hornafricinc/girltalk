@@ -17,7 +17,7 @@ from girltalk import settings
 from subscription.models import ClientSubscription, SubscriberDetails, SubscriberSubscriptionDetails
 import stripe
 
-stripe.api_key=settings.STRIPE_TEST_SECRET_KEY
+stripe.api_key=settings.STRIPE_LIVE_SECRET_KEY
 
 
 @csrf_exempt

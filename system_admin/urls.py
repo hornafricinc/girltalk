@@ -2,7 +2,7 @@ from django.urls import path
 from system_admin import views
 app_name='system_admin'
 urlpatterns=[
-     path('login/',views.process_admin_signin,name='login'),
+     path('',views.process_admin_signin,name='login'),
      path('create_account/',views.create_account,name='create_account'),
      path('accounts/',views.load_admin_dash,name='admin_dash'),
      path('accounts/payments',views.load_payments_details,name='admin_payments'),

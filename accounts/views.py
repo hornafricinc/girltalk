@@ -23,7 +23,7 @@ from subscription.models import ClientSubscription, SubscriberSubscriptionDetail
 from system_admin.models import AccessCodes
 
 restricted_numbers=['14072096283','407.209.6283','407.782.0157','4077820157','@iamshagritty' '@producertybandit','@IAMSHAGRITTY','@PRODUCERTYBANDIT']
-stripe.api_key=settings.STRIPE_TEST_SECRET_KEY
+stripe.api_key=settings.STRIPE_LIVE_SECRET_KEY
 class LoadIndex(TemplateView):
     template_name = 'home.html'
 
@@ -329,7 +329,7 @@ def prepareuserdashboard(request):
 
 
         else:
-            message = format_html('Dear GirlTallk user,you do not have an active subscription.Please <a href="{}" class="btn">Subscribe Now</a>',reverse('subscription:subscriptionplans'))
+            message = format_html('Dear Girl Tallk user, your subscription is not active. Please <a href="{}">activate now</a>',reverse('subscription:subscriptionplans'))
             messages.error(request, message)
 
             # User has subscribed.
@@ -347,3 +347,6 @@ def prepareuserdashboard(request):
 
 
 
+@login_required(login_url='accounts:signin')
+def get_facebook_instructions(request):
+    return render(request,'subscriber/facebook_instructions.html')

@@ -11,14 +11,14 @@
         <div class="col s12 m6 offset-m3">
             <div class="card">
     <div class="card-content">
-      <p>Dear GirlTallk User.This is where you manage your subscriptions.</p>
+      <p>Dear Girl Tallk user. You can manage your subscription status from here.</p>
         <p class="center-align">Subscription Status:
             {% if s_status == 'canceled' %}
                 <b class="red-text">{{ s_status }}</b>
                 {% elif s_status == 'trialing' %}
-                 <b class="orange-text">{{ s_status }}</b>
+                 <b class="orange-text">Trial</b>
                 {% elif s_status == 'active' %}
-                 <b class="green-text">{{ s_status }}</b>
+                 <b class="green-text">Active</b>
                 {% else %}
                  <b class="red-text">{{ s_status }}</b>
             {% endif %}
@@ -40,8 +40,7 @@
                       <div id="test5">
                           <form method="post" action="">
                               {% csrf_token %}
-                              <p>Kindly give us a reason why you would like to subscribe that will make us improve on our services.Leave the feedback by filling the form below.</p>
-
+                              <p>Please let us know about your experience. Your feedback is very important to us. Leave us a comment by filling out the form below.
                               <div class="row">
                                  <div class="input-field col s12">
                                      <textarea id="textarea1" class="materialize-textarea"></textarea>

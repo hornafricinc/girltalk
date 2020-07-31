@@ -33,7 +33,7 @@ SECRET_KEY = env('APP_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost','ac6e9e4ee35a.ngrok.io']
 
 
 # Application definition
@@ -130,9 +130,13 @@ else:
 
 
 
+#STRIPE LIVE KEYS
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_LIVE_SECRET_KEY =env('STRIPE_LIVE_SECRET_KEY')
+STRIPE_LIVE_MODE = True
+DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"  # We don't use this, but it must be set
 
-
-#STRIPE DETAILS
+#STRIPE TEST DETAILS
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_TEST_SECRET_KEY  =env('STRIPE_TEST_SECRET_KEY')
 STRIPE_LIVE_MODE = False

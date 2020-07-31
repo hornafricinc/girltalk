@@ -20,7 +20,7 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('',include('accounts.urls')),
     path('Subscription/',include('subscription.urls')),
-    path('system_admin/',include('system_admin.urls')),
+    path('sys_admin/',include('system_admin.urls')),
     #path('paypal/', include('paypal.standard.ipn.urls')),
 
     path('account_management/', include('django.contrib.auth.urls')),
