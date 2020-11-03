@@ -17,6 +17,7 @@ from accounts.models import Search, Messages, Profile
 from django.core.mail import send_mail
 
 from girltalk import settings
+from girltalk.settings import EMAIL_HOST_USER
 from subscription.models import ClientSubscription, SubscriberSubscriptionDetails
 
 #This is the homepage;
@@ -350,3 +351,23 @@ def prepareuserdashboard(request):
 @login_required(login_url='accounts:signin')
 def get_facebook_instructions(request):
     return render(request,'subscriber/facebook_instructions.html')
+
+#This is the function to help those people who have forgotten their usernames;
+def recover_username(request):
+    if request.method == 'POST':
+        email_address=request.POST['email']
+        #Get the user with the registered email address;
+        user=User.objects.filter(email=email_address).exists()
+        if user:
+            userObject=User.objects.filter(email=email_address)
+            username=""
+            for user in userObject:
+                username=user.username
+            # Sacco Manager should receive an email
+            subject = "GIRLTALLK USERNAME RECOVERY"
+            message = "Your GirlTallk Username is:"+username
+            send_mail(subject, message, EMAIL_HOST_USER, [request.POST['email']], fail_silently=True)
+            messages.success(request,"Your username has been emailed to the email address. Kindly log in to your email address and check.")
+        else:
+            messages.error(request,'The supplied email address does not exist')
+    return render(request,'accounts/recover_username.html')
