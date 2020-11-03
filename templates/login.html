@@ -77,9 +77,8 @@
 						</a>
 					</div>
                     <div class="text-center w-full">
-						<a class="txt1" href="{% url 'password_reset' %}">
-							Forgot Password?
-						</a>
+                        <p class="txt1">Forgot  <a href="{% url 'accounts:recover_username' %}" class="txt1" style="color: deeppink">Username?</a> or <a href="{% url 'password_reset' %}" style="color: red">Password?</a> </p>
+
 					</div>
 				</form>
 			</div>
