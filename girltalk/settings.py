@@ -185,6 +185,8 @@ EMAIL_HOST_USER = 'girltallk7@gmail.com'
 EMAIL_HOST_PASSWORD = 'qjabetllzeplyvqf'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+#Setting to ensure that sessions expire immediately.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 # Static files (CSS, JavaScript, Images)

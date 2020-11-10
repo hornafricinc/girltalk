@@ -1,7 +1,9 @@
+from django.contrib.sessions.models import Session
+from django.utils import timezone
 from djstripe.models import Subscription
 import stripe
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, user_logged_in
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -13,7 +15,7 @@ from django.utils.html import format_html
 from django.views.generic import TemplateView
 
 from accounts.forms import LoginForm, UserAccountForm
-from accounts.models import Search, Messages, Profile
+from accounts.models import Search, Messages, Profile, UserSession
 from django.core.mail import send_mail
 
 from girltalk import settings
@@ -40,8 +42,38 @@ def fetch_chats(request,user_id):
 
 def receiverDetail(request,user_id):
     receiver=None
-    receiver_id=int(user_id)
+    receiver_id = int(user_id)
+    #Receiver session data.
+    #all_sessions=Session.objects.filter(expire_date__gte=timezone.now())
+    #uid_list=[]
+    receiver_status=''
+
+
+
+    '''
+    for session in all_sessions:
+        data = session.get_decoded()
+        uid_list.append(data.get('_auth_user_id', None))
+        #Now i have a list of all active users id.
+        if receiver_id in uid_list:
+            receiver_status='Online'
+        else:
+            receiver_status='Offline'
+        '''
+            
+
+
     userdetail=User.objects.filter(pk=receiver_id)
+    user=User.objects.get(pk=receiver_id)
+    #Session data
+    usersession_info = UserSession.objects.filter(user=user)
+    sessiondata="Offline"
+    if len(usersession_info) > 0:
+        sessiondata="Online"
+
+    #for session_info in usersession_info:
+    #    expiration_date = session_info.user
+    #End of session data
     myFriends=getMyFriends(request.user.username)
     chats =fetch_chats(request,user_id)
     if len(userdetail)>0:
@@ -54,7 +86,7 @@ def receiverDetail(request,user_id):
         chats =fetch_chats(request,user_id) #Messages.objects.filter(sender=request.user.id).filter(receiver=user_id).order_by('created_at')|  Messages.objects.filter(sender=user_id).filter(receiver=request.user.id).order_by('created_at')
     else:
         receiver=None
-    return  render(request,'subscriber/instant_messaging.html',{'receiver':receiver,'chats':chats,'myFriends':myFriends})
+    return  render(request,'subscriber/instant_messaging.html',{'receiver':receiver,'receiver_status':sessiondata,'chats':chats,'myFriends':myFriends})
 
 
 #This is the start of the web application
@@ -252,9 +284,10 @@ def prepareuserdashboard(request):
         entered_term = request.POST['searchTerm']
         searchterm = entered_term.lstrip()
         category = request.POST['cat']
-
-        if subscription_status =='active' or subscription_status =='trialing':
-            #Prepare the data for database update;
+        #Here we check if the user has exceeded the number of three searches given unto him.
+        if get_user_total_searches(request.user)<3:
+           #There is need to confirm this into a function of its own.
+            # Prepare the data for database update;
             searchTermObject.search_term = searchterm.lower()
             searchTermObject.search_group = category
             user = User.objects.get(pk=request.user.id)
@@ -265,7 +298,7 @@ def prepareuserdashboard(request):
             elif searchterm in restricted_numbers:
                 messages.error(request, 'There is no match.')
             else:
-                #Validate facebook now.
+                # Validate facebook now.
                 if category == 'facebook' and validate_facebook_search(searchterm):
                     # check if the term is already in the database.
                     exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
@@ -289,14 +322,14 @@ def prepareuserdashboard(request):
                             receiver = singleResults.user.email
                             user = User.objects.get(email=receiver)
                             message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
-                            send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver],fail_silently=False)
+                            send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
                             searchTermObject.save()
                         else:
                             searchTermObject.save()
-                elif category == 'facebook' and validate_facebook_search(searchterm)==False:
-                    messages.error(request,"Invalid Facebook ID.Kindly enter correct facebook ID")
+                elif category == 'facebook' and validate_facebook_search(searchterm) == False:
+                    messages.error(request, "Invalid Facebook ID.Kindly enter correct facebook ID")
 
-                #Handle non facebook related searches.
+                # Handle non facebook related searches.
                 else:
                     # check if the term is already in the database.
                     exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
@@ -325,13 +358,87 @@ def prepareuserdashboard(request):
                             searchTermObject.save()
                         else:
                             searchTermObject.save()
-
-
-
-
+        #Perform the search
         else:
-            message = format_html('Dear Girl Tallk user, your subscription is not active. Please <a href="{}">activate now</a>',reverse('subscription:subscriptionplans'))
-            messages.error(request, message)
+            if subscription_status =='active' or subscription_status =='trialing':
+                #Prepare the data for database update;
+                searchTermObject.search_term = searchterm.lower()
+                searchTermObject.search_group = category
+                user = User.objects.get(pk=request.user.id)
+                searchTermObject.user_id = user.pk
+
+                if category == 'null' or searchterm == '':
+                    messages.error(request, 'You have not selected any category or entered any search term')
+                elif searchterm in restricted_numbers:
+                    messages.error(request, 'There is no match.')
+                else:
+                    #Validate facebook now.
+                    if category == 'facebook' and validate_facebook_search(searchterm):
+                        # check if the term is already in the database.
+                        exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
+                            search_term__iexact=searchterm).count()
+                        if exists > 0:
+                            ''''
+                            Since it exists We have now to query the database for records that 
+                            do not include my keyword.
+                            '''
+                            search_results = Search.objects.filter(search_term__iexact=searchterm).filter(
+                                search_group=category).exclude(user=request.user.id)
+
+                        else:
+                            # Fetch results from database.
+                            search_results = Search.objects.filter(search_term__iexact=searchterm).filter(
+                                search_group=category).exclude(user=request.user.id)
+                            if len(search_results) == 1:
+                                singleResults = Search.objects.filter(search_term__iexact=searchterm).filter(
+                                    search_group=category).exclude(user=request.user.id).first()
+                                subject = "We Found a Match at Girl Tallk"
+                                receiver = singleResults.user.email
+                                user = User.objects.get(email=receiver)
+                                message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
+                                send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver],fail_silently=False)
+                                searchTermObject.save()
+                            else:
+                                searchTermObject.save()
+                    elif category == 'facebook' and validate_facebook_search(searchterm)==False:
+                        messages.error(request,"Invalid Facebook ID.Kindly enter correct facebook ID")
+
+                    #Handle non facebook related searches.
+                    else:
+                        # check if the term is already in the database.
+                        exists = Search.objects.filter(user=request.user.id).filter(search_group=category).filter(
+                            search_term__iexact=searchterm).count()
+                        if exists > 0:
+                            ''''
+                            Since it exists We have now to query the database for records that 
+                            do not include my keyword.
+                            '''
+                            search_results = Search.objects.filter(search_term__iexact=searchterm).filter(
+                                search_group=category).exclude(user=request.user.id)
+
+                        else:
+                            # Fetch results from database.
+                            search_results = Search.objects.filter(search_term__iexact=searchterm).filter(
+                                search_group=category).exclude(user=request.user.id)
+                            if len(search_results) == 1:
+                                singleResults = Search.objects.filter(search_term__iexact=searchterm).filter(
+                                    search_group=category).exclude(user=request.user.id).first()
+                                subject = "We Found a Match at Girl Tallk"
+                                receiver = singleResults.user.email
+                                user = User.objects.get(email=receiver)
+                                message = user.username + ",we  found a match in Girl Tallk.Please visit the website to initiate a chat"
+
+                                send_mail(subject, message, settings.EMAIL_HOST_USER, [receiver], fail_silently=False)
+                                searchTermObject.save()
+                            else:
+                                searchTermObject.save()
+
+
+
+
+            else:
+                message = format_html('Dear Girl Tallk user, your subscription is not active. Please <a href="{}">activate now</a>',reverse('subscription:subscriptionplans'))
+                messages.error(request, message)
 
             # User has subscribed.
 
@@ -371,3 +478,23 @@ def recover_username(request):
         else:
             messages.error(request,'The supplied email address does not exist')
     return render(request,'accounts/recover_username.html')
+#This is the function to get total number of seraches by a client;
+def get_user_total_searches(user):
+    proceed=False
+    try:
+        total_searches=Search.objects.filter(user=user).count()
+    except Search.DoesNotExist:
+        total_searches=0
+    return  total_searches
+    '''
+        if total_searches <= 3:
+        proceed=True
+    else:
+        proceed=False
+    return proceed
+    '''
+#This is the function to get the status of the logged in user.
+def user_logged_in_handler(sender,request,user,**kwargs):
+    UserSession.objects.get_or_create(user=user,session_id=request.session.session_key)
+user_logged_in.connect(user_logged_in_handler)
+

@@ -20,16 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="289392f9-1ccc-4322-91fa-b2b61597cbcb" name="Default" comment="Latest Changes with username recovery included">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/accounts/recover_username.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/girltalk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/girltalk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/girltalk/.env" beforeDir="false" afterPath="$PROJECT_DIR$/girltalk/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/girltalk/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/girltalk/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/girltalk/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/girltalk/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/subscriber/instant_messaging.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/subscriber/instant_messaging.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/subscriber/matchalgo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/subscriber/matchalgo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +59,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Classes/Python" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -160,7 +156,11 @@
       <workItem from="1604306623486" duration="2743000" />
       <workItem from="1604331901772" duration="2089000" />
       <workItem from="1604344072877" duration="4762000" />
-      <workItem from="1604394497790" duration="6660000" />
+      <workItem from="1604394497790" duration="7585000" />
+      <workItem from="1604479132987" duration="697000" />
+      <workItem from="1604903262708" duration="5611000" />
+      <workItem from="1604999056770" duration="6345000" />
+      <workItem from="1605010150949" duration="5638000" />
     </task>
     <task id="LOCAL-00001" summary="Latest Changes with username recovery included">
       <created>1604405290002</created>
@@ -187,14 +187,15 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Latest Changes with username recovery included" />
     <option name="LAST_COMMIT_MESSAGE" value="Latest Changes with username recovery included" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="453" y="121" key="FileChooserDialogImpl" timestamp="1604480897581">
+      <screen x="0" y="27" width="1366" height="695" />
+    </state>
+    <state x="453" y="121" key="FileChooserDialogImpl/0.27.1366.695@0.27.1366.695" timestamp="1604480897581" />
     <state width="296" height="501" key="HiddenNamespacesPopup" timestamp="1604306730689">
       <screen x="0" y="27" width="1366" height="695" />
     </state>
@@ -209,7 +210,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/accounts/views.py</url>
-          <line>150</line>
+          <line>182</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/subscription/views.py</url>

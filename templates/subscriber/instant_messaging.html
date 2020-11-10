@@ -6,14 +6,24 @@
         <div class="col s12 m12 l12">
             <div class="container">
               <div class="row">
-               <div class="col s12 m8 offset-m2">
-       <div class="card">
-                <div class="card-content" >
-                    <span class="center-align">  <span class="card-title"> Chat with: {% if receiver is not None %}
-                                    <b>{{ receiver.username }}</b> | <span class="card-title" id="ct"></span>
-                               {% endif %}</span>
-                                <div class="divider"></div></span>
-                    <div class="chats">
+              <div class="col s12 m11 offset-m1">
+                  <div class="card">
+                      <div class="card-content">
+                          <div class="row">
+                              <div class="col s12 m8">
+                                  <div class="card">
+                                      <span class="card-title center-align">
+                                          {% if receiver is not None %}
+                                                <b>{{ receiver.username }}</b> | {% if receiver_status == 'Online' %}
+                                          <small style="color: mediumseagreen">{{ receiver_status }}</small>
+                                              {% else %}
+                                              <small style="color: grey">{{ receiver_status }}</small>
+                                          {% endif %}
+                                          {% endif %}</span>
+                                      <div class="divider"></div>
+                                      <div class="card-content" style="overflow: auto;height:61vh ">
+                                          <!--This is where the chats are displayed-->
+                                          <div class="chats">
                         {% if chats %}
                            {% for chat in chats %}
                                {% if chat.sender == request.user %}
@@ -23,8 +33,10 @@
 
                                 </div>
 
-                                <div class="col s10">
-                                     <p style="color: blueviolet">{{ chat.message_text }}</p>
+                                <div class="col s10" style=" border: 1px solid;background:#111E6C;
+  border-radius: 15px;margin-top: 20px;color: white">
+                                    <p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                                     <p style="color: white">{{ chat.message_text }}</p>
                                 </div>
                             </div>
                                    {% else %}
@@ -32,8 +44,10 @@
                              <div class="row valign-wrapper">
 
 
-                                <div class="col s10">
-                                     <p class="right-align" style="color: deeppink" >{{ chat.message_text }}</p>
+                                <div class="col s10" style=" border: 1px solid;color:black;background: #D0D0D0;
+  border-radius: 15px;margin-top: 20px">
+                                    <p class="right-align">{{ receiver.first_name|upper }} {{ receiver.last_name|upper }}</p>
+                                     <p class="right-align" style="color: black" >{{ chat.message_text }}</p>
                                 </div>
                               <div class="col s2">
                                     <img src="{% static 'images/avatar/' %}{{ receiver.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
@@ -48,8 +62,10 @@
                        {% endif %}
 
                     </div>
-                <div class="divider"></div>
-                <div class="row">
+                                          <!--End of chats-->
+                                      <div class="divider"></div>
+                                      <!--Start of the new chatting window-->
+                                       <div class="row">
                     <div class="col s12 m12 l12">
                         <div class="form">
                     <form method="post" action="">
@@ -65,10 +81,35 @@
                     </div>
                     </div>
                 </div>
+                                      <!--End of the chatting window-->
 
-                </div>
-            </div>
-    </div>
+
+
+
+
+                                      </div>
+                                  </div>
+
+                              </div>
+                              <!--This is the page that will have the details of the user you are chatting with-->
+                              <div class="col s12 m4">
+                                  <div class="card center-align">
+                                      <div class="card-image center-align">
+                                           <img src="{% static 'images/avatar/' %}{{ receiver.profile.profile_image_name }} " height="30" width="30" class="circle responsive-img">
+                                       </div>
+                                      <div class="card-content">
+                                          <h5>{{ receiver.username }}</h5>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+              <!--Orginal-->
+
+
 
            </div>
            </div>
