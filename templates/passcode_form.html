@@ -1,0 +1,84 @@
+
+{% extends 'login.html' %}
+{% block content %}
+
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-190 p-b-30">
+				<form class="login100-form validate-form" method="post" action="">
+                    {% csrf_token %}
+                    <span class="login100-form-title p-t-20 p-b-45">
+						Girl Tallk~Password Reset
+					</span>
+                <span style="color: white">
+                    Kindly enter the verification code sent to your email and the new password to complete password reset process
+                </span>
+                {% if messages %}
+
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                             <span style="margin:auto; display:table; border:2px solid purple;background: white;color: #2E8B57;border-radius: 25px;padding: 10px;margin-bottom: 12px">
+
+                                      {{ message }}
+                             </span>
+
+                            {% else %}
+                             <span style="margin:auto; display:table; border:2px solid purple;background: white;color: red;border-radius: 25px;padding: 10px;margin-bottom: 12px">
+                                {{ message }}
+                              </span>
+
+                        {% endif %}
+
+
+                    {% endfor %}
+
+
+
+                {% endif %}
+
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate = "Verification Code is Required">
+                        <input type="text" class="input100 validate" name="verification_code" placeholder="Enter Verification code">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-sort-numeric-asc"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+                        <input type="password" class="input100 validate" name="new_password" placeholder="New Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock"></i>
+						</span>
+					</div>
+                	<div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+                        <input type="password" class="input100 validate" name="c_new_password" placeholder="Confirm New Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock"></i>
+						</span>
+					</div>
+
+					<div class="container-login100-form-btn p-t-10">
+						<button class="login100-form-btn horn-btn" type="submit">
+							Confirm Code and Reset Password
+						</button>
+					</div>
+                <div class="text-center w-full">
+						<a class="txt1" href="{% url 'accounts:signin' %}">
+							Login
+							<i class="fa fa-long-arrow-right"></i>
+						</a>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+
+

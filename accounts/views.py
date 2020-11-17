@@ -1,4 +1,8 @@
+from random import randint
+
+from django.contrib.auth.hashers import make_password
 from django.contrib.sessions.models import Session
+from django.template.loader import render_to_string
 from django.utils import timezone
 from djstripe.models import Subscription
 import stripe
@@ -11,7 +15,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse
-from django.utils.html import format_html
+from django.utils.html import format_html, strip_tags
 from django.views.generic import TemplateView
 
 from accounts.forms import LoginForm, UserAccountForm
@@ -497,4 +501,51 @@ def get_user_total_searches(user):
 def user_logged_in_handler(sender,request,user,**kwargs):
     UserSession.objects.get_or_create(user=user,session_id=request.session.session_key)
 user_logged_in.connect(user_logged_in_handler)
+#This is the view to handle Password Reset
+def reset_user_password(request):
+    if request.method == 'POST':
+        entered_email=request.POST['registered_email']
+        #Now we have to sent the generated code to the registered email address.
+        #We save the registered number in the database.
+        try:
+            requesting_user=User.objects.get(email=entered_email)
+            gen_code=randint(100000,999999)
 
+            #save now in the reset passcode
+            subject = "Here is your GirlTallk Password Reset Code"
+            html_content = render_to_string("mail_template.html",{'username':'kilimoc','gen_code':gen_code})
+            text_content=strip_tags(html_content)
+            send_mail(subject, text_content, EMAIL_HOST_USER, [entered_email], fail_silently=True)
+            
+            user_id=requesting_user.id
+            request.session['user_id']=user_id
+            request.session['gen_code']=gen_code
+            return redirect('accounts:perform_password_reset')
+        except User.DoesNotExist:
+            messages.error(request,'Invalid Email Address')
+    return render(request,'password_reset_form.html')
+#This is the function to perform the actual code
+def reset_password_now(request):
+    if request.method == 'POST':
+        verification_code=request.POST['verification_code']
+        new_pass=request.POST['new_password']
+        c_new_pass = request.POST['c_new_password']
+        user_id=request.session['user_id']
+        if request.session.has_key('gen_code'):
+            if verification_code !=str(request.session['gen_code']):
+                messages.error(request,'You have entered an invalid code:' +str(request.session['gen_code']))
+            else:
+                # Now reset the password;
+                #Check if the entered password values match
+                if c_new_pass == new_pass:
+                    user=User.objects.get(pk=request.session['user_id'])
+                    user.password=make_password(new_pass,salt=None)
+                    user.save()
+                    messages.success(request,'Password Reset Successful')
+                else:
+                    messages.error(request,'Your password do not match.')
+        else:
+            messages.error(request,'You password reset code has expired')
+        del request.session['gen_code']
+        del request.session['user_id']
+    return render(request,'passcode_form.html')

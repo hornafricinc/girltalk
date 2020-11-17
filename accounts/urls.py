@@ -23,6 +23,10 @@ urlpatterns = [
     path('accounts/affiliate',views.user_affiliate_management,name='user_affiliate'),
     path('accounts/username_recovery/',views.recover_username,name='recover_username'),
 
+    #Password Recovery.
+    path('signin/password_reset/',views.reset_user_password,name='reset_user_password'),
+    path('signin/password_reset_code/', views.reset_password_now, name='perform_password_reset'),
+
 
 
 
